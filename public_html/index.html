@@ -40,19 +40,21 @@
 
   <header class="hero">
     <div class="container">
-      <div>
+      <div class="hero-copy">
         <span class="eyebrow" id="hero-eyebrow">Kostenlose Vor-Ort-Prüfung</span>
-        <h1 id="hero-headline">Ihr Zählerstand verrät mehr, als Sie denken.</h1>
+        <h1 id="hero-headline"><span class="line">Ihr Zählerstand verrät</span><span class="line accent">mehr, als Sie denken.</span></h1>
         <p class="subheadline" id="hero-subheadline">Photovoltaik, Wärmepumpe oder ein günstigerer Stromtarif – in 20 Sekunden antippen statt Formular ausfüllen.</p>
-        <button type="button" class="btn btn-primary" id="start-sofort-check">
-          <svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M13 2 4 14h6l-1 8 9-12h-6z" stroke-linejoin="round" stroke-linecap="round"/></svg>
-          Jetzt Zähler prüfen
-        </button>
+        <div class="hero-actions">
+          <button type="button" class="btn btn-primary" id="start-sofort-check">
+            <svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M13 2 4 14h6l-1 8 9-12h-6z" stroke-linejoin="round" stroke-linecap="round"/></svg>
+            Jetzt Zähler prüfen
+          </button>
+          <button type="button" class="notfall-link" id="start-notfall">
+            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14.7 6.3a4 4 0 0 1-5.4 5.4L4 17l3 3 5.3-5.3a4 4 0 0 1 5.4-5.4l-2.6 2.6-2-2z" stroke-linejoin="round" stroke-linecap="round"/></svg>
+            Heizung akut ausgefallen? Sofort-Hilfe
+          </button>
+        </div>
         <div class="hero-note">Kostenlos · unverbindlich · keine Registrierung</div>
-        <button type="button" class="notfall-link" id="start-notfall">
-          <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14.7 6.3a4 4 0 0 1-5.4 5.4L4 17l3 3 5.3-5.3a4 4 0 0 1 5.4-5.4l-2.6 2.6-2-2z" stroke-linejoin="round" stroke-linecap="round"/></svg>
-          Heizung akut ausgefallen? Sofort-Hilfe
-        </button>
         <p class="sc-social-proof" id="social-proof-counter" hidden></p>
       </div>
       <div class="readout-dial" aria-hidden="true">
@@ -64,7 +66,7 @@
             <line x1="26" y1="120" x2="38" y2="120" opacity="0.4"/>
             <line x1="202" y1="120" x2="214" y2="120" opacity="0.4"/>
           </g>
-          <g style="transform: rotate(38deg); transform-origin: 120px 120px;">
+          <g class="dial-needle" style="transform: rotate(38deg); transform-origin: 120px 120px;">
             <line x1="120" y1="120" x2="120" y2="52" stroke="#EFB876" stroke-width="3.5" stroke-linecap="round"/>
           </g>
           <circle cx="120" cy="120" r="7" fill="#EFB876"/>
@@ -75,115 +77,158 @@
   </header>
 </div>
 
-<section class="trust-bar">
-  <div class="container trust-items">
-    <span class="trust-item">
-      <span class="icon-plate sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg></span>
-      TÜV-geprüfte Partner
-    </span>
-    <span class="trust-item">
-      <span class="icon-plate sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 11.5 12 5l8 6.5"/><path d="M6 10v9h12v-9"/><path d="M10 19v-5h4v5"/></svg></span>
-      Made in Germany
-    </span>
-    <span class="trust-item">
-      <span class="icon-plate sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="9" cy="9" r="3"/><circle cx="16.5" cy="10.5" r="2.4"/><path d="M4 19c0-2.8 2.2-5 5-5s5 2.2 5 5M14.2 14.5c2.2.3 3.8 2.2 3.8 4.5"/></svg></span>
-      Über 10.000 zufriedene Kunden
-    </span>
-  </div>
-</section>
-
-<section class="section reveal">
-  <div class="container">
-    <div class="section-head">
-      <span class="eyebrow">Unser Versprechen</span>
-      <h2>Ohne Druck, ohne Kaltbesuch</h2>
+<!-- Trust-Logo-Wall: laufende Reihe aus Zertifizierungen / Partnern -->
+<section class="logo-wall" aria-label="Zertifizierungen und Partner">
+  <div class="logo-wall-track">
+    <div class="logo-set">
+      <span class="logo-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg>TÜV-geprüfte Partner</span>
+      <span class="logo-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 11.5 12 5l8 6.5"/><path d="M6 10v9h12v-9"/></svg>Made in Germany</span>
+      <span class="logo-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="10" r="5"/><path d="M9 14.5 7.5 21l4.5-2.3 4.5 2.3-1.5-6.5" stroke-linejoin="round"/></svg>KfW-Förderpartner</span>
+      <span class="logo-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="8"/><path d="M9 12l2 2 4-4"/></svg>BAFA-anerkannt</span>
+      <span class="logo-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="4" r="0"/><path d="M12 3a6 6 0 0 0-3.5 10.9c.6.4 1 1.1 1 1.9M14.5 15.8c0-.8.4-1.5 1-1.9A6 6 0 0 0 12 3"/><path d="M9 18h6M10 21h4"/></svg>Meisterbetriebe</span>
+      <span class="logo-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>DSGVO-konform</span>
     </div>
-    <div class="benefits-grid">
-      <div class="benefit-card">
-        <span class="icon-plate"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/><path d="M9.5 12l-1.5-1"/><path d="M14.5 12l1.5-1"/></svg></span>
-        <h3>Kein Kaltbesuch</h3>
-        <p>Niemand klingelt unangekündigt. Kontakt erfolgt ausschließlich über den Weg, den du wählst (WhatsApp/Telefon).</p>
-      </div>
-      <div class="benefit-card">
-        <span class="icon-plate"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 7h16M4 12h10M4 17h7"/></svg></span>
-        <h3>Kein Vertragsdruck</h3>
-        <p>Du bekommst ein unverbindliches Angebot. Entscheiden kannst du in Ruhe, ohne Frist.</p>
-      </div>
-      <div class="benefit-card">
-        <span class="icon-plate"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="8"/><path d="M9 12l2 2 4-4"/></svg></span>
-        <h3>Unabhängige Prüfung</h3>
-        <p>Wir vermitteln passende, geprüfte Partner statt eine feste Marke zu verkaufen.</p>
-      </div>
+    <div class="logo-set" aria-hidden="true">
+      <span class="logo-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg>TÜV-geprüfte Partner</span>
+      <span class="logo-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 11.5 12 5l8 6.5"/><path d="M6 10v9h12v-9"/></svg>Made in Germany</span>
+      <span class="logo-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="10" r="5"/><path d="M9 14.5 7.5 21l4.5-2.3 4.5 2.3-1.5-6.5" stroke-linejoin="round"/></svg>KfW-Förderpartner</span>
+      <span class="logo-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="8"/><path d="M9 12l2 2 4-4"/></svg>BAFA-anerkannt</span>
+      <span class="logo-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3a6 6 0 0 0-3.5 10.9c.6.4 1 1.1 1 1.9M14.5 15.8c0-.8.4-1.5 1-1.9A6 6 0 0 0 12 3"/><path d="M9 18h6M10 21h4"/></svg>Meisterbetriebe</span>
+      <span class="logo-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>DSGVO-konform</span>
     </div>
   </div>
 </section>
 
-<section class="section reveal">
+<!-- Nummerierte Feature-Cards -->
+<section class="section reveal" id="vorteile">
   <div class="container">
     <div class="section-head">
-      <span class="eyebrow">Was Sie gewinnen</span>
-      <h2>Drei Werte, die sich sofort auszahlen</h2>
+      <span class="eyebrow">Capabilities</span>
+      <h2>Drei Werte, die sich<br><span class="accent">sofort auszahlen.</span></h2>
+      <p class="section-lede">Ein kurzer Check genügt – der Rest ist Rechnen zu Ihren Gunsten.</p>
     </div>
-    <div class="benefits-grid">
-      <div class="benefit-card">
-        <span class="icon-plate"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="8"/><path d="M8.5 10.3h6.5M8.5 13.7h5.2" stroke-linecap="round"/></svg></span>
+    <div class="feature-grid">
+      <article class="feature-card">
+        <span class="feature-num">01</span>
         <h3>Kosten senken</h3>
-        <p>Reduzieren Sie Ihre monatlichen Energiekosten spürbar und dauerhaft.</p>
-      </div>
-      <div class="benefit-card">
-        <span class="icon-plate"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M13 2 4 14h6l-1 8 9-12h-6z" stroke-linejoin="round" stroke-linecap="round"/></svg></span>
+        <p>Reduzieren Sie Ihre monatlichen Energiekosten spürbar und dauerhaft – oft mehrere hundert Euro im Jahr.</p>
+      </article>
+      <article class="feature-card">
+        <span class="feature-num">02</span>
         <h3>Unabhängig werden</h3>
-        <p>Machen Sie sich unabhängig von steigenden Strom- und Gaspreisen.</p>
-      </div>
-      <div class="benefit-card">
-        <span class="icon-plate"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="10" r="5"/><path d="M9 14.5 7.5 21l4.5-2.3 4.5 2.3-1.5-6.5" stroke-linejoin="round"/></svg></span>
+        <p>Machen Sie sich unabhängig von steigenden Strom- und Gaspreisen und produzieren Sie Ihre Energie selbst.</p>
+      </article>
+      <article class="feature-card">
+        <span class="feature-num">03</span>
         <h3>Förderung sichern</h3>
-        <p>Nutzen Sie staatliche Förderprogramme, bevor sie auslaufen.</p>
+        <p>Nutzen Sie staatliche Förderprogramme von KfW und BAFA, bevor die Töpfe für dieses Jahr auslaufen.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- Live-Metriken mit animierten Countern -->
+<section class="section section--tint metrics reveal">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">In Zahlen</span>
+      <h2>Ergebnisse, die man<br><span class="accent">messen kann.</span></h2>
+    </div>
+    <div class="metric-grid">
+      <div class="metric">
+        <span class="metric-value" data-count-to="10000" data-suffix="+" data-format="thousand">0</span>
+        <span class="metric-label">geprüfte Zähler</span>
+      </div>
+      <div class="metric">
+        <span class="metric-value" data-count-to="98" data-suffix="%">0</span>
+        <span class="metric-label">Zufriedenheit</span>
+      </div>
+      <div class="metric">
+        <span class="metric-value" data-prefix="&lt;" data-count-to="20" data-suffix=" Sek.">0</span>
+        <span class="metric-label">Prüfzeit</span>
+      </div>
+      <div class="metric">
+        <span class="metric-value" data-count-to="100" data-suffix="%">0</span>
+        <span class="metric-label">kostenlos &amp; unverbindlich</span>
       </div>
     </div>
   </div>
 </section>
 
+<!-- 3-Schritte-Prozess -->
+<section class="section process reveal">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Process</span>
+      <h2>In drei Schritten<br><span class="accent">zur Ersparnis.</span></h2>
+    </div>
+    <ol class="steps">
+      <li class="step">
+        <span class="step-num">I</span>
+        <h3>Zähler prüfen</h3>
+        <p>Beantworten Sie ein paar einfache Fragen. In rund 20 Sekunden wissen wir, was zu Ihnen passt.</p>
+      </li>
+      <li class="step">
+        <span class="step-num">II</span>
+        <h3>Beratung erhalten</h3>
+        <p>Ein geprüfter Partner meldet sich unverbindlich und erstellt Ihnen ein passendes Angebot.</p>
+      </li>
+      <li class="step">
+        <span class="step-num">III</span>
+        <h3>Sparen</h3>
+        <p>Sie senken Ihre Kosten, sichern Förderungen und werden unabhängig von steigenden Preisen.</p>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- Testimonial-Karussell -->
 <section class="section section--tint reveal">
   <div class="container">
     <div class="section-head">
-      <span class="eyebrow">Rückmeldungen</span>
-      <h2>Das sagen unsere Kunden</h2>
+      <span class="eyebrow">Stimmen</span>
+      <h2>Was unsere Kunden<br><span class="accent">berichten.</span></h2>
     </div>
-    <div class="testimonials">
-      <div class="stub">
-        <span class="quote-mark">&rdquo;</span>
-        <p class="quote">Der Ablauf war unkompliziert und ich habe schnell ein passendes Angebot erhalten.</p>
-        <div class="stub-person">
+    <div class="carousel" id="testimonial-carousel">
+      <blockquote class="carousel-slide is-active">
+        <p class="carousel-quote">Der Ablauf war unkompliziert und ich habe innerhalb weniger Tage ein passendes Angebot erhalten. Kein Druck, keine Kaltbesuche.</p>
+        <div class="carousel-result"><span class="result-key">Ergebnis</span><span class="result-val">~1.400 € Ersparnis pro Jahr</span></div>
+        <footer class="carousel-author">
           <span class="avatar" style="background: linear-gradient(155deg, #E7B77A, #B5822F);">MS</span>
-          <span class="who"><strong>M. Schneider</strong><span>Eigentümerin, Photovoltaik</span></span>
-        </div>
-      </div>
-      <div class="stub">
-        <span class="quote-mark">&rdquo;</span>
-        <p class="quote">Endlich unabhängig von steigenden Strompreisen.</p>
-        <div class="stub-person">
+          <span class="who"><strong>M. Schneider</strong><span>Eigentümerin · Photovoltaik</span></span>
+        </footer>
+      </blockquote>
+      <blockquote class="carousel-slide">
+        <p class="carousel-quote">Endlich unabhängig von steigenden Strompreisen. Die Beratung war ehrlich und ich habe genau verstanden, was sich für mich lohnt.</p>
+        <div class="carousel-result"><span class="result-key">Ergebnis</span><span class="result-val">Wärmepumpe inkl. Förderung</span></div>
+        <footer class="carousel-author">
           <span class="avatar" style="background: linear-gradient(155deg, #A9B6A0, #6E7268);">KF</span>
-          <span class="who"><strong>K. Fischer</strong><span>Eigentümer, Wärmepumpe</span></span>
-        </div>
-      </div>
-      <div class="stub">
-        <span class="quote-mark">&rdquo;</span>
-        <p class="quote">Kompetente Beratung, klare Empfehlung.</p>
-        <div class="stub-person">
+          <span class="who"><strong>K. Fischer</strong><span>Eigentümer · Wärmepumpe</span></span>
+        </footer>
+      </blockquote>
+      <blockquote class="carousel-slide">
+        <p class="carousel-quote">Kompetente Beratung, klare Empfehlung und ein Tarif, der wirklich günstiger ist. So einfach hätte ich das nicht erwartet.</p>
+        <div class="carousel-result"><span class="result-key">Ergebnis</span><span class="result-val">28 % niedrigerer Stromtarif</span></div>
+        <footer class="carousel-author">
           <span class="avatar" style="background: linear-gradient(155deg, #D9A55C, #8F5A28);">RW</span>
-          <span class="who"><strong>R. Weber</strong><span>Eigentümer, Stromtarif</span></span>
-        </div>
+          <span class="who"><strong>R. Weber</strong><span>Eigentümer · Stromtarif</span></span>
+        </footer>
+      </blockquote>
+      <div class="carousel-controls">
+        <button type="button" class="carousel-dot is-active" data-slide="0" aria-label="Stimme 1"></button>
+        <button type="button" class="carousel-dot" data-slide="1" aria-label="Stimme 2"></button>
+        <button type="button" class="carousel-dot" data-slide="2" aria-label="Stimme 3"></button>
       </div>
     </div>
   </div>
 </section>
 
+<!-- FAQ -->
 <section class="section reveal">
   <div class="container">
     <div class="section-head">
-      <span class="eyebrow">Bevor Sie starten</span>
-      <h2>Häufige Fragen</h2>
+      <span class="eyebrow">FAQ</span>
+      <h2>Bevor Sie starten,<br><span class="accent">kurz erklärt.</span></h2>
     </div>
     <div class="faq-panel">
       <details class="faq-item">
@@ -202,6 +247,21 @@
         <summary>Ist die Förderung noch verfügbar?<span class="faq-chevron"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 10l5 5 5-5"/></svg></span></summary>
         <p>Die Verfügbarkeit staatlicher Förderprogramme kann sich ändern – ein Berater prüft dies individuell für Sie.</p>
       </details>
+    </div>
+  </div>
+</section>
+
+<!-- Abschluss-CTA -->
+<section class="section final-cta reveal">
+  <div class="container">
+    <div class="final-cta-panel">
+      <span class="eyebrow">Bereit?</span>
+      <h2>Ihr Zähler-Check wartet.<br><span class="accent">20 Sekunden genügen.</span></h2>
+      <p>Kein Formular, keine Registrierung – einfach antippen und herausfinden, was Sie sparen können.</p>
+      <button type="button" class="btn btn-primary" id="final-cta-btn">
+        <svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M13 2 4 14h6l-1 8 9-12h-6z" stroke-linejoin="round" stroke-linecap="round"/></svg>
+        Jetzt Zähler prüfen
+      </button>
     </div>
   </div>
 </section>
