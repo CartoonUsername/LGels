@@ -1,0 +1,83 @@
+<title>Admin-Login</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --paper: #EFEDE6; --surface-raised: #FFFFFF;
+    --ink: #2A2824; --ink-muted: #6F6A61;
+    --accent: #C08A44; --accent-strong: #8F5A28;
+    --border: #DEDAD0; --border-strong: #C9C3B4;
+    --panel-dark: #24211C; --on-dark: #EDE8DD;
+    --shadow-b: rgba(30, 26, 18, 0.16);
+    --font-body: 'Public Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-mono: 'JetBrains Mono', 'SFMono-Regular', Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: #17150F; --surface-raised: #26221B; --ink: #EEE8DA; --ink-muted: #A79E8C;
+      --accent: #D89A54; --accent-strong: #EFB876; --border: #38332A; --border-strong: #4A4335;
+      --panel-dark: #100E0A; --on-dark: #F1ECDF; --shadow-b: rgba(0,0,0,0.55);
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper: #17150F; --surface-raised: #26221B; --ink: #EEE8DA; --ink-muted: #A79E8C;
+    --accent: #D89A54; --accent-strong: #EFB876; --border: #38332A; --border-strong: #4A4335;
+    --panel-dark: #100E0A; --on-dark: #F1ECDF; --shadow-b: rgba(0,0,0,0.55);
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--font-body); font-size: 15px; }
+
+  .demo-badge { position: fixed; top: 12px; right: 12px; z-index: 3000; background: var(--panel-dark); color: var(--on-dark); font-family: var(--font-mono); font-size: 0.72rem; padding: 6px 12px; border-radius: 20px; opacity: 0.85; }
+  .demo-hint { position: fixed; bottom: 16px; left: 0; right: 0; text-align: center; font-family: var(--font-mono); font-size: 0.78rem; color: var(--ink-muted); }
+
+  .admin-login-body { display: flex; align-items: center; justify-content: center; min-height: 100vh; }
+  .login-card { background: var(--surface-raised); border: 1px solid var(--border); border-radius: 12px; padding: 36px 32px; width: 100%; max-width: 340px; box-shadow: 0 20px 40px -24px var(--shadow-b); }
+  .login-card h1 { margin: 0 0 4px; font-size: 1.3rem; font-family: var(--font-body); font-weight: 700; }
+  .muted { color: var(--ink-muted); margin: 0 0 20px; font-size: 0.9rem; }
+  .login-card label { display: block; margin: 14px 0 6px; font-weight: 600; font-size: 0.88rem; }
+  .login-card input { width: 100%; padding: 10px 12px; border: 1px solid var(--border-strong); border-radius: 6px; font-size: 1rem; background: var(--surface-raised); color: var(--ink); font-family: inherit; }
+  .login-card .btn { width: 100%; margin-top: 20px; }
+  .error { color: #B23A2E; font-size: 0.88rem; margin: 0 0 12px; }
+  .success { color: #256B3A; font-size: 0.88rem; margin: 0 0 12px; }
+
+  .btn { appearance: none; border: none; cursor: pointer; background: var(--accent); color: #2A1C0E; font-weight: 700; padding: 11px 20px; border-radius: 6px; font-size: 0.95rem; }
+  .btn:hover { filter: brightness(1.05); }
+</style>
+
+<div class="demo-badge">Design-Vorschau · Backend simuliert</div>
+
+<div class="admin-login-body">
+  <form class="login-card" id="login-form" novalidate>
+    <h1>Zählerstand</h1>
+    <p class="muted">Admin-Bereich</p>
+    <p class="error" id="login-error" hidden>Benutzername oder Passwort falsch.</p>
+    <p class="success" id="login-success" hidden>Erfolgreich angemeldet — Weiterleitung zur Leads-Übersicht …</p>
+    <label for="username">Benutzername</label>
+    <input type="text" id="username" required autofocus>
+    <label for="password">Passwort</label>
+    <input type="password" id="password" required>
+    <button type="submit" class="btn">Anmelden</button>
+  </form>
+</div>
+
+<p class="demo-hint">Demo-Zugang: admin / zaehlerstand</p>
+
+<script>
+document.getElementById('login-form').addEventListener('submit', function (e) {
+  e.preventDefault();
+  const username = document.getElementById('username').value.trim();
+  const password = document.getElementById('password').value;
+  const errorEl = document.getElementById('login-error');
+  const successEl = document.getElementById('login-success');
+
+  if (username === 'admin' && password === 'zaehlerstand') {
+    errorEl.hidden = true;
+    successEl.hidden = false;
+  } else {
+    successEl.hidden = true;
+    errorEl.hidden = false;
+  }
+});
+</script>

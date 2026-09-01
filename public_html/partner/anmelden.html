@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Partner werden — Zählerstand</title>
+<meta name="description" content="Sie sehen jeden Tag, wer eine alte Heizung hat. Empfehlen Sie Ihre Kunden weiter und verdienen Sie pro vermitteltem Kontakt mit.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@500;600;700&family=Public+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/style.css">
+<style>
+  .partner-hero { padding: 64px 0 48px; }
+  .partner-hero .eyebrow { text-align: left; }
+  .partner-steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 24px; margin: 32px 0 48px; }
+  .partner-step { background: var(--surface-raised); border: 1px solid var(--border); border-radius: 14px; padding: 26px 22px; }
+  .partner-step .step-num { font-family: var(--font-mono); font-size: 0.8rem; color: var(--accent-strong); font-weight: 700; margin-bottom: 10px; display: block; }
+  .partner-step h3 { font-size: 1.05rem; margin-bottom: 8px; }
+  .partner-step p { color: var(--ink-muted); font-size: 0.92rem; line-height: 1.55; }
+
+  #partner-form { max-width: 460px; background: var(--surface-raised); border: 1px solid var(--border); border-radius: 14px; padding: 32px 28px; margin: 0 auto; box-shadow: 0 20px 40px -24px var(--shadow-b); }
+  #partner-form label { display: block; margin: 14px 0 6px; font-weight: 600; font-size: 0.88rem; }
+  #partner-form input, #partner-form select {
+    width: 100%; padding: 11px 12px; border: 1px solid var(--border-strong); border-radius: 8px; font-size: 0.98rem; font-family: inherit; background: var(--surface-raised); color: var(--ink);
+  }
+  #partner-form button { width: 100%; margin-top: 22px; }
+  #partner-feedback { margin-top: 14px; font-size: 0.9rem; }
+  #partner-feedback.error { color: #B23A2E; }
+
+  .erfolg-box { max-width: 460px; margin: 0 auto; background: var(--surface-raised); border: 1px solid var(--border); border-radius: 14px; padding: 32px 28px; text-align: center; }
+  .erfolg-box .link-feld { display: flex; gap: 8px; margin: 16px 0; }
+  .erfolg-box input { flex: 1; padding: 10px 12px; border: 1px solid var(--border-strong); border-radius: 8px; font-family: var(--font-mono); font-size: 0.85rem; }
+</style>
+</head>
+<body>
+
+<section class="partner-hero">
+  <div class="container">
+    <span class="eyebrow">Partnerprogramm</span>
+    <h1 style="font-size: clamp(2rem, 4vw, 2.6rem); max-width: 20ch;">Sie sehen jeden Tag, wer eine alte Heizung hat.</h1>
+    <p style="max-width: 56ch; color: var(--ink-muted); font-size: 1.05rem; margin-top: 16px;">
+      Egal ob Schornsteinfeger, Dachdecker oder Bank-/Finanzberater — Sie haben ohnehin Kontakt zu
+      Hausbesitzer:innen, bei denen eine PV-Anlage, Wärmepumpe oder ein Tarifwechsel Sinn ergibt.
+      Geben Sie Ihren persönlichen Link weiter — für jeden vermittelten, qualifizierten Kontakt
+      erhalten Sie eine Provision.
+    </p>
+  </div>
+</section>
+
+<section class="section" style="padding-top: 0;">
+  <div class="container">
+    <div class="partner-steps">
+      <div class="partner-step">
+        <span class="step-num">Schritt 1</span>
+        <h3>Anmelden</h3>
+        <p>Formular unten ausfüllen, dauert eine Minute. Sie bekommen sofort Ihren persönlichen Link.</p>
+      </div>
+      <div class="partner-step">
+        <span class="step-num">Schritt 2</span>
+        <h3>Link weitergeben</h3>
+        <p>An Kunden, bei denen Sie eine alte Heizung oder Interesse an Solar sehen — per WhatsApp, SMS oder als Zettel.</p>
+      </div>
+      <div class="partner-step">
+        <span class="step-num">Schritt 3</span>
+        <h3>Provision erhalten</h3>
+        <p>Sobald jemand über Ihren Link den Sofort-Check abschließt und ein Angebot zustande kommt, erhalten Sie [XX] € pro vermitteltem Kontakt.</p>
+      </div>
+    </div>
+
+    <form id="partner-form" novalidate>
+      <div class="honeypot" aria-hidden="true"><label for="p-website">Website</label><input type="text" id="p-website" name="website" tabindex="-1" autocomplete="off"></div>
+
+      <label for="p-name">Ihr Name</label>
+      <input type="text" id="p-name" name="name" required>
+
+      <label for="p-betrieb">Betrieb / Firma</label>
+      <input type="text" id="p-betrieb" name="betrieb" required>
+
+      <label for="p-partnertyp">Sie sind …</label>
+      <select id="p-partnertyp" name="partnertyp" required>
+        <option value="" disabled selected>Bitte wählen</option>
+        <option value="schornsteinfeger">Schornsteinfeger:in</option>
+        <option value="dachdecker">Dachdecker:in</option>
+        <option value="bank-finanzberater">Bank-/Finanzberater:in</option>
+        <option value="handwerker">Sonstiger Handwerksbetrieb</option>
+        <option value="sonstiges">Sonstiges</option>
+      </select>
+
+      <label for="p-plz">Haupt-PLZ-Gebiet</label>
+      <input type="text" id="p-plz" name="plz_gebiet" inputmode="numeric" pattern="\d{4,5}" maxlength="5">
+
+      <label for="p-telefon">Telefon</label>
+      <input type="tel" id="p-telefon" name="telefon" placeholder="0151 23456789">
+
+      <label for="p-email">E-Mail</label>
+      <input type="email" id="p-email" name="email">
+
+      <button type="submit" class="btn btn-primary">Partner werden</button>
+      <p id="partner-feedback" role="status"></p>
+    </form>
+
+    <div class="erfolg-box" id="erfolg-box" hidden>
+      <h2 style="font-size: 1.3rem; margin-bottom: 10px;">Willkommen an Bord!</h2>
+      <p style="color: var(--ink-muted);">Das ist Ihr persönlicher Empfehlungslink:</p>
+      <div class="link-feld">
+        <input type="text" id="referral-link" readonly>
+        <button type="button" class="btn btn-secondary" id="copy-link-btn">Kopieren</button>
+      </div>
+      <p style="font-size: 0.85rem; color: var(--ink-muted);">Jeder, der über diesen Link kommt, wird automatisch Ihnen zugeordnet.</p>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <span class="credit">© Zählerstand</span>
+    <nav><a href="../index.html">Zur Landingpage</a><a href="../impressum.html">Impressum</a></nav>
+  </div>
+</footer>
+
+<script>
+document.getElementById('partner-form').addEventListener('submit', async function (e) {
+  e.preventDefault();
+  const form = e.target;
+  const feedback = document.getElementById('partner-feedback');
+  const submitBtn = form.querySelector('button[type="submit"]');
+  submitBtn.disabled = true;
+  feedback.textContent = 'Wird gesendet …';
+  feedback.className = '';
+
+  const body = new FormData(form);
+  try {
+    const r = await fetch('../api/partner-anmeldung.php', { method: 'POST', body });
+    const data = await r.json();
+    if (data.ok) {
+      const link = window.location.origin + '/?ref=' + data.code;
+      document.getElementById('referral-link').value = link;
+      form.hidden = true;
+      document.getElementById('erfolg-box').hidden = false;
+    } else {
+      feedback.textContent = 'Bitte alle Pflichtfelder korrekt ausfüllen.';
+      feedback.className = 'error';
+      submitBtn.disabled = false;
+    }
+  } catch (err) {
+    feedback.textContent = 'Es gab ein Problem. Bitte versuchen Sie es erneut.';
+    feedback.className = 'error';
+    submitBtn.disabled = false;
+  }
+});
+
+document.getElementById('copy-link-btn').addEventListener('click', function () {
+  const input = document.getElementById('referral-link');
+  input.select();
+  navigator.clipboard?.writeText(input.value);
+  this.textContent = 'Kopiert!';
+  setTimeout(() => { this.textContent = 'Kopieren'; }, 2000);
+});
+</script>
+</body>
+</html>

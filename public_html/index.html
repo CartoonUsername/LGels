@@ -1,0 +1,377 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Zählerstand — Energiekosten senken, in 20 Sekunden geprüft</title>
+<meta name="description" content="Finden Sie in 20 Sekunden heraus, ob Sie für Photovoltaik, Wärmepumpe oder einen günstigeren Stromtarif qualifiziert sind.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@500;600;700&family=Public+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+
+<!-- WhatsApp-Nummer des Vertriebs, international ohne "+" (siehe config/config.php "whatsapp.number") -->
+<script>
+  window.LEAD_WHATSAPP_NUMMER = "4915112345678"; // TODO: echte Nummer eintragen
+</script>
+
+<!-- Tracking: leer lassen = deaktiviert. IDs eintragen, um Meta Pixel / Google Ads
+     zu aktivieren (lädt erst nach Cookie-Einwilligung, siehe assets/js/tracking.js) -->
+<script>
+  window.META_PIXEL_ID = ""; // z.B. "1234567890123456"
+  window.GOOGLE_ADS_ID = ""; // z.B. "AW-123456789"
+  window.GOOGLE_ADS_CONVERSION_LABEL = ""; // aus Google Ads > Conversions > Tag-Einrichtung
+</script>
+</head>
+<body>
+
+<div class="panel-top">
+  <header class="nameplate">
+    <div class="container">
+      <div class="wordmark">
+        <span class="icon-plate mark on-dark">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 15a7 7 0 0 1 14 0"/><line x1="12" y1="15" x2="12" y2="9"/><circle cx="12" cy="15" r="1.2" fill="currentColor" stroke="none"/></svg>
+        </span>
+        <span>ZÄHLERSTAND<small>Energie-Check</small></span>
+      </div>
+      <span class="model-tag">Modell&nbsp;E&#8209;40/60</span>
+    </div>
+  </header>
+
+  <header class="hero">
+    <div class="container">
+      <div>
+        <span class="eyebrow" id="hero-eyebrow">Kostenlose Vor-Ort-Prüfung</span>
+        <h1 id="hero-headline">Ihr Zählerstand verrät mehr, als Sie denken.</h1>
+        <p class="subheadline" id="hero-subheadline">Photovoltaik, Wärmepumpe oder ein günstigerer Stromtarif – in 20 Sekunden antippen statt Formular ausfüllen.</p>
+        <button type="button" class="btn btn-primary" id="start-sofort-check">
+          <svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M13 2 4 14h6l-1 8 9-12h-6z" stroke-linejoin="round" stroke-linecap="round"/></svg>
+          Jetzt Zähler prüfen
+        </button>
+        <div class="hero-note">Kostenlos · unverbindlich · keine Registrierung</div>
+        <button type="button" class="notfall-link" id="start-notfall">
+          <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14.7 6.3a4 4 0 0 1-5.4 5.4L4 17l3 3 5.3-5.3a4 4 0 0 1 5.4-5.4l-2.6 2.6-2-2z" stroke-linejoin="round" stroke-linecap="round"/></svg>
+          Heizung akut ausgefallen? Sofort-Hilfe
+        </button>
+        <p class="sc-social-proof" id="social-proof-counter" hidden></p>
+      </div>
+      <div class="readout-dial" aria-hidden="true">
+        <svg width="240" height="240" viewBox="0 0 240 240">
+          <circle cx="120" cy="120" r="106" fill="var(--panel-dark-2)" stroke="rgba(239,184,118,0.25)" stroke-width="1.5"/>
+          <g stroke="rgba(239,184,118,0.35)" stroke-width="2">
+            <line x1="120" y1="26" x2="120" y2="38"/>
+            <line x1="120" y1="202" x2="120" y2="214" opacity="0.4"/>
+            <line x1="26" y1="120" x2="38" y2="120" opacity="0.4"/>
+            <line x1="202" y1="120" x2="214" y2="120" opacity="0.4"/>
+          </g>
+          <g style="transform: rotate(38deg); transform-origin: 120px 120px;">
+            <line x1="120" y1="120" x2="120" y2="52" stroke="#EFB876" stroke-width="3.5" stroke-linecap="round"/>
+          </g>
+          <circle cx="120" cy="120" r="7" fill="#EFB876"/>
+          <text x="120" y="162" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="13" fill="#B7AF9E" letter-spacing="1.5">KWH · MONAT</text>
+        </svg>
+      </div>
+    </div>
+  </header>
+</div>
+
+<section class="trust-bar">
+  <div class="container trust-items">
+    <span class="trust-item">
+      <span class="icon-plate sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg></span>
+      TÜV-geprüfte Partner
+    </span>
+    <span class="trust-item">
+      <span class="icon-plate sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 11.5 12 5l8 6.5"/><path d="M6 10v9h12v-9"/><path d="M10 19v-5h4v5"/></svg></span>
+      Made in Germany
+    </span>
+    <span class="trust-item">
+      <span class="icon-plate sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="9" cy="9" r="3"/><circle cx="16.5" cy="10.5" r="2.4"/><path d="M4 19c0-2.8 2.2-5 5-5s5 2.2 5 5M14.2 14.5c2.2.3 3.8 2.2 3.8 4.5"/></svg></span>
+      Über 10.000 zufriedene Kunden
+    </span>
+  </div>
+</section>
+
+<section class="section reveal">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Unser Versprechen</span>
+      <h2>Ohne Druck, ohne Kaltbesuch</h2>
+    </div>
+    <div class="benefits-grid">
+      <div class="benefit-card">
+        <span class="icon-plate"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/><path d="M9.5 12l-1.5-1"/><path d="M14.5 12l1.5-1"/></svg></span>
+        <h3>Kein Kaltbesuch</h3>
+        <p>Niemand klingelt unangekündigt. Kontakt erfolgt ausschließlich über den Weg, den du wählst (WhatsApp/Telefon).</p>
+      </div>
+      <div class="benefit-card">
+        <span class="icon-plate"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 7h16M4 12h10M4 17h7"/></svg></span>
+        <h3>Kein Vertragsdruck</h3>
+        <p>Du bekommst ein unverbindliches Angebot. Entscheiden kannst du in Ruhe, ohne Frist.</p>
+      </div>
+      <div class="benefit-card">
+        <span class="icon-plate"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="8"/><path d="M9 12l2 2 4-4"/></svg></span>
+        <h3>Unabhängige Prüfung</h3>
+        <p>Wir vermitteln passende, geprüfte Partner statt eine feste Marke zu verkaufen.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section reveal">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Was Sie gewinnen</span>
+      <h2>Drei Werte, die sich sofort auszahlen</h2>
+    </div>
+    <div class="benefits-grid">
+      <div class="benefit-card">
+        <span class="icon-plate"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="8"/><path d="M8.5 10.3h6.5M8.5 13.7h5.2" stroke-linecap="round"/></svg></span>
+        <h3>Kosten senken</h3>
+        <p>Reduzieren Sie Ihre monatlichen Energiekosten spürbar und dauerhaft.</p>
+      </div>
+      <div class="benefit-card">
+        <span class="icon-plate"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M13 2 4 14h6l-1 8 9-12h-6z" stroke-linejoin="round" stroke-linecap="round"/></svg></span>
+        <h3>Unabhängig werden</h3>
+        <p>Machen Sie sich unabhängig von steigenden Strom- und Gaspreisen.</p>
+      </div>
+      <div class="benefit-card">
+        <span class="icon-plate"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="10" r="5"/><path d="M9 14.5 7.5 21l4.5-2.3 4.5 2.3-1.5-6.5" stroke-linejoin="round"/></svg></span>
+        <h3>Förderung sichern</h3>
+        <p>Nutzen Sie staatliche Förderprogramme, bevor sie auslaufen.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--tint reveal">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Rückmeldungen</span>
+      <h2>Das sagen unsere Kunden</h2>
+    </div>
+    <div class="testimonials">
+      <div class="stub">
+        <span class="quote-mark">&rdquo;</span>
+        <p class="quote">Der Ablauf war unkompliziert und ich habe schnell ein passendes Angebot erhalten.</p>
+        <div class="stub-person">
+          <span class="avatar" style="background: linear-gradient(155deg, #E7B77A, #B5822F);">MS</span>
+          <span class="who"><strong>M. Schneider</strong><span>Eigentümerin, Photovoltaik</span></span>
+        </div>
+      </div>
+      <div class="stub">
+        <span class="quote-mark">&rdquo;</span>
+        <p class="quote">Endlich unabhängig von steigenden Strompreisen.</p>
+        <div class="stub-person">
+          <span class="avatar" style="background: linear-gradient(155deg, #A9B6A0, #6E7268);">KF</span>
+          <span class="who"><strong>K. Fischer</strong><span>Eigentümer, Wärmepumpe</span></span>
+        </div>
+      </div>
+      <div class="stub">
+        <span class="quote-mark">&rdquo;</span>
+        <p class="quote">Kompetente Beratung, klare Empfehlung.</p>
+        <div class="stub-person">
+          <span class="avatar" style="background: linear-gradient(155deg, #D9A55C, #8F5A28);">RW</span>
+          <span class="who"><strong>R. Weber</strong><span>Eigentümer, Stromtarif</span></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section reveal">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Bevor Sie starten</span>
+      <h2>Häufige Fragen</h2>
+    </div>
+    <div class="faq-panel">
+      <details class="faq-item">
+        <summary>Entstehen mir Kosten durch die Anfrage?<span class="faq-chevron"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 10l5 5 5-5"/></svg></span></summary>
+        <p>Nein, die Prüfung ist für Sie vollständig kostenlos und unverbindlich.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Wie schnell werde ich kontaktiert?<span class="faq-chevron"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 10l5 5 5-5"/></svg></span></summary>
+        <p>In der Regel meldet sich ein Berater innerhalb von 1–2 Werktagen telefonisch oder per WhatsApp bei Ihnen.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Was passiert mit meinen Daten?<span class="faq-chevron"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 10l5 5 5-5"/></svg></span></summary>
+        <p>Ihre Daten werden ausschließlich zur Bearbeitung Ihrer Anfrage verwendet. Details finden Sie in der <a href="datenschutz.html">Datenschutzerklärung</a>.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Ist die Förderung noch verfügbar?<span class="faq-chevron"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 10l5 5 5-5"/></svg></span></summary>
+        <p>Die Verfügbarkeit staatlicher Förderprogramme kann sich ändern – ein Berater prüft dies individuell für Sie.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <span class="credit">© Zählerstand</span>
+    <nav>
+      <a href="impressum.html">Impressum</a>
+      <a href="datenschutz.html">Datenschutz</a>
+      <a href="mailto:kontakt@example.de">Kontakt</a>
+    </nav>
+  </div>
+</footer>
+
+<!-- Sticky-CTA: erscheint erst, nachdem der Hero-Button aus dem Blickfeld ist -->
+<div class="sticky-cta" id="sticky-cta">
+  <span>Bereit für Ihren Zähler-Check?</span>
+  <button type="button" class="btn btn-primary" id="sticky-cta-btn">Jetzt prüfen</button>
+</div>
+
+<!-- Sofort-Check: Vollbild-Tap-Ablauf statt klassischem Formular -->
+<div class="sofort-check-overlay" id="sofort-check" hidden>
+  <button type="button" class="sc-close" id="sc-close" aria-label="Schließen">✕</button>
+  <div class="sc-progress"><span class="sc-progress-bar" id="sc-progress-bar"></span></div>
+
+  <div class="sc-step" data-step="wohnsituation">
+    <h2>Bist du Eigentümer:in deiner Immobilie?</h2>
+    <div class="sc-tap-grid">
+      <button type="button" class="sc-tap" data-value="eigentuemer">
+        <span class="icon-plate sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 11.5 12 5l8 6.5"/><path d="M6 10v9h12v-9"/><path d="M10 19v-5h4v5"/></svg></span>
+        Ja, Eigentümer:in
+      </button>
+      <button type="button" class="sc-tap" data-value="mieter">
+        <span class="icon-plate sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="8" cy="8" r="3.2"/><path d="M10.3 10.3 19 19m-3 0 2-2m-6-1 2-2"/></svg></span>
+        Nein, Mieter:in
+      </button>
+    </div>
+  </div>
+
+  <div class="sc-step" data-step="baujahr" hidden>
+    <h2>Baujahr deiner Immobilie?</h2>
+    <p class="sc-sub">Damit wir passende Förderungen für dein Baujahr finden.</p>
+    <div class="sc-tap-grid">
+      <button type="button" class="sc-tap" data-value="vor-1980">vor 1980</button>
+      <button type="button" class="sc-tap" data-value="1980-2000">1980–2000</button>
+      <button type="button" class="sc-tap" data-value="nach-2000">nach 2000</button>
+    </div>
+  </div>
+
+  <div class="sc-step" data-step="alter" hidden>
+    <h2>Wie alt bist du?</h2>
+    <div class="sc-tap-grid">
+      <button type="button" class="sc-tap" data-value="unter40">unter 40</button>
+      <button type="button" class="sc-tap" data-value="40-60">40–60</button>
+      <button type="button" class="sc-tap" data-value="ueber60">über 60</button>
+    </div>
+  </div>
+
+  <div class="sc-step" data-step="interesse" hidden>
+    <h2>Woran hast du Interesse?</h2>
+    <div class="sc-tap-grid">
+      <button type="button" class="sc-tap" data-value="photovoltaik">
+        <span class="icon-plate sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="4"/><path d="M12 3v3M12 18v3M4 12h3M17 12h3M6 6l2 2M16 16l2 2M6 18l2-2M16 8l2-2" stroke-linecap="round"/></svg></span>
+        Photovoltaik
+      </button>
+      <button type="button" class="sc-tap" data-value="waermepumpe">
+        <span class="icon-plate sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 3c2.8 3.6-2.6 4.6-1 8.2 1.4 2.9 4.2 1.5 3.6-1.7 1.8 1.4 2.3 5.4-1.3 7.2-4.4 2.4-8-.9-7.1-5.3.5-2.2 1.8-4 5.8-8.4z"/></svg></span>
+        Wärmepumpe
+      </button>
+      <button type="button" class="sc-tap" data-value="stromtarif">
+        <span class="icon-plate sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M13 2 4 14h6l-1 8 9-12h-6z" stroke-linejoin="round" stroke-linecap="round"/></svg></span>
+        Stromtarif
+      </button>
+      <button type="button" class="sc-tap" data-value="landwirtschaft">
+        <span class="icon-plate sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 20V10l8-6 8 6v10" stroke-linejoin="round"/><path d="M9 20v-6h6v6" stroke-linejoin="round"/></svg></span>
+        Landwirtschaft/Betrieb
+      </button>
+      <button type="button" class="sc-tap" data-value="vermieter">
+        <span class="icon-plate sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="4" y="4" width="16" height="16" rx="1.5"/><path d="M8 8h.01M12 8h.01M16 8h.01M8 12h.01M12 12h.01M16 12h.01M8 16h.01M12 16h.01"/></svg></span>
+        Vermieter/Mieterstrom
+      </button>
+      <button type="button" class="sc-tap" data-value="sonstiges">
+        <span class="icon-plate sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.6.4 1 1.1 1 1.9v.2h5v-.2c0-.8.4-1.5 1-1.9A6 6 0 0 0 12 3Z" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        Sonstiges
+      </button>
+    </div>
+  </div>
+
+  <div class="sc-step" data-step="energiekosten" hidden>
+    <h2>Wie hoch sind deine monatlichen Energiekosten aktuell?</h2>
+    <div class="sc-tap-grid">
+      <button type="button" class="sc-tap" data-value="unter-50">unter 50 €</button>
+      <button type="button" class="sc-tap" data-value="50-100">50–100 €</button>
+      <button type="button" class="sc-tap" data-value="100-150">100–150 €</button>
+      <button type="button" class="sc-tap" data-value="150-200">150–200 €</button>
+      <button type="button" class="sc-tap" data-value="200-250">200–250 €</button>
+      <button type="button" class="sc-tap" data-value="ueber-250">über 250 €</button>
+    </div>
+  </div>
+
+  <div class="sc-step sc-value-reveal" data-step="ergebnis" hidden>
+    <h2>Dein Zählerstand</h2>
+    <div class="readout">
+      <div class="readout-label">Geschätzte Ersparnis</div>
+      <p class="sc-ersparnis" id="sc-ersparnis">–</p>
+    </div>
+    <p class="sc-disclaimer">Unverbindliche Schätzung. Die tatsächliche Ersparnis hängt von deiner individuellen Situation ab.</p>
+    <button type="button" class="btn btn-primary" id="sc-weiter-zu-kontakt">Ergebnis sichern</button>
+  </div>
+
+  <div class="sc-step" data-step="kontakt" hidden>
+    <h2>Wohin sollen wir dein Ergebnis schicken?</h2>
+    <form id="sc-kontakt-form" novalidate>
+      <div class="honeypot" aria-hidden="true">
+        <label for="sc-website">Website</label>
+        <input type="text" id="sc-website" name="website" tabindex="-1" autocomplete="off">
+      </div>
+
+      <label for="sc-vorname">Vorname</label>
+      <input type="text" id="sc-vorname" name="vorname" required autocomplete="given-name">
+
+      <label for="sc-plz">Postleitzahl</label>
+      <input type="text" id="sc-plz" name="plz" inputmode="numeric" pattern="\d{4,5}" maxlength="5" required autocomplete="postal-code">
+
+      <label for="sc-telefon">Telefonnummer</label>
+      <input type="tel" id="sc-telefon" name="telefon" required placeholder="0151 23456789" autocomplete="tel">
+
+      <label class="checkbox-label">
+        <input type="checkbox" id="sc-datenschutz" name="datenschutz_ok" value="1" required>
+        Ich habe die <a href="datenschutz.html" target="_blank">Datenschutzerklärung</a> gelesen und bin mit der Kontaktaufnahme (auch per WhatsApp/Telefon) einverstanden. *
+      </label>
+
+      <button type="submit" class="btn btn-whatsapp">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15L2 22l5.2-1.4A10 10 0 1 0 12 2Zm0 18a8 8 0 0 1-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1 1 12 20Z"/></svg>
+        Per WhatsApp sichern
+      </button>
+      <p id="sc-feedback" role="status"></p>
+    </form>
+  </div>
+
+  <div class="sc-step sc-success" data-step="erfolg" hidden>
+    <span class="icon-plate" style="margin: 0 auto 16px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+    <h2>Fast geschafft!</h2>
+    <p>Dein Ergebnis wurde gespeichert. Falls sich WhatsApp nicht automatisch geöffnet hat, tippe hier:</p>
+    <a href="#" id="sc-whatsapp-link" class="btn btn-whatsapp" target="_blank" rel="noopener">WhatsApp öffnen</a>
+
+    <div class="referral-box" id="referral-box" hidden>
+      <p class="referral-text">Kennst du jemanden mit ähnlichem Bedarf? Teile deinen persönlichen Link:</p>
+      <div class="referral-link-row">
+        <input type="text" id="referral-share-link" readonly>
+        <button type="button" class="btn btn-secondary" id="referral-copy-btn">Kopieren</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="sc-step sc-exit" data-step="nicht-qualifiziert" hidden>
+    <h2>Danke für dein Interesse!</h2>
+    <p id="sc-exit-text">Aktuell richten wir uns an eine andere Zielgruppe. Schau gern später wieder vorbei.</p>
+  </div>
+</div>
+
+<div class="sc-exit-intent" id="sc-exit-intent" hidden>
+  <p>Lieber direkt weitermachen?</p>
+  <a href="#" id="sc-exit-intent-whatsapp" class="btn btn-whatsapp" target="_blank" rel="noopener">Per WhatsApp fragen</a>
+  <button type="button" id="sc-exit-intent-close" class="btn btn-secondary">Weiter hier</button>
+</div>
+
+<script src="assets/js/sofort-check.js"></script>
+<script src="assets/js/enhance.js"></script>
+<script src="assets/js/tracking.js"></script>
+</body>
+</html>

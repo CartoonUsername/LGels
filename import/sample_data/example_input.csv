@@ -1,0 +1,6 @@
+vorname;nachname;telefon;email;plz;alter;wohnsituation;interesse;energiekosten;consent
+Anna;Muster;+49 151 23456789;anna.muster@example.de;10115;52;Eigentümer;Photovoltaik;150-200€;ja
+Bernd;Beispiel;0170 9876543;bernd.beispiel@example.de;80331;38;Eigentümer;Wärmepumpe;100-150€;ja
+Claudia;Test;0176 1112233;claudia.test@example.de;50667;58;Mieter;Stromtarif;50-100€;ja
+Dieter;Fake;keine-nummer;dieter.fake@example.de;20095;45;Eigentümer;Photovoltaik;200-250€;ja
+Erika;Sample;0157 4445566;erika.sample@example.de;60329;49;Eigentümer;Wärmepumpe;150-200€;nein

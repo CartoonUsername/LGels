@@ -1,0 +1,252 @@
+<title>Leads-Übersicht</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --paper: #EFEDE6; --surface: #F7F5F0; --surface-raised: #FFFFFF;
+    --ink: #2A2824; --ink-muted: #6F6A61;
+    --accent: #C08A44; --accent-strong: #8F5A28;
+    --border: #DEDAD0; --border-strong: #C9C3B4;
+    --panel-dark: #24211C; --on-dark: #EDE8DD;
+    --shadow-b: rgba(30, 26, 18, 0.16);
+    --font-body: 'Public Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-mono: 'JetBrains Mono', 'SFMono-Regular', Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: #17150F; --surface: #1E1B15; --surface-raised: #26221B; --ink: #EEE8DA; --ink-muted: #A79E8C;
+      --accent: #D89A54; --accent-strong: #EFB876; --border: #38332A; --border-strong: #4A4335;
+      --panel-dark: #100E0A; --on-dark: #F1ECDF; --shadow-b: rgba(0,0,0,0.55);
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper: #17150F; --surface: #1E1B15; --surface-raised: #26221B; --ink: #EEE8DA; --ink-muted: #A79E8C;
+    --accent: #D89A54; --accent-strong: #EFB876; --border: #38332A; --border-strong: #4A4335;
+    --panel-dark: #100E0A; --on-dark: #F1ECDF; --shadow-b: rgba(0,0,0,0.55);
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--font-body); font-size: 15px; }
+  a { color: var(--accent-strong); }
+
+  .demo-badge { position: fixed; top: 12px; right: 12px; z-index: 3000; background: var(--panel-dark); color: var(--on-dark); font-family: var(--font-mono); font-size: 0.72rem; padding: 6px 12px; border-radius: 20px; opacity: 0.85; }
+
+  .btn { appearance: none; border: none; cursor: pointer; background: var(--accent); color: #2A1C0E; font-weight: 700; padding: 11px 20px; border-radius: 6px; font-size: 0.95rem; text-decoration: none; display: inline-block; }
+  .btn:hover { filter: brightness(1.05); }
+
+  .admin-header { background: var(--panel-dark); color: var(--on-dark); padding: 16px 24px; }
+  .admin-header-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+  .admin-header h1 { font-size: 1.15rem; margin: 0; font-weight: 700; }
+  .admin-header nav a { color: var(--on-dark); margin-left: 16px; font-size: 0.88rem; text-decoration: none; }
+  .admin-header nav a:hover { text-decoration: underline; }
+
+  .admin-main { max-width: 1200px; margin: 0 auto; padding: 24px; }
+
+  .stat-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 14px; margin-bottom: 24px; }
+  .stat-card { background: var(--surface-raised); border: 1px solid var(--border); border-radius: 10px; padding: 16px 18px; }
+  .stat-value { display: block; font-family: var(--font-mono); font-size: 1.8rem; font-weight: 700; }
+  .stat-label { font-size: 0.8rem; color: var(--ink-muted); }
+
+  .filter-bar { display: flex; flex-wrap: wrap; gap: 20px; margin-bottom: 18px; }
+  .filter-bar label { font-size: 0.85rem; font-weight: 600; display: flex; flex-direction: column; gap: 4px; }
+  .filter-bar select { padding: 8px 10px; border: 1px solid var(--border-strong); border-radius: 6px; font-size: 0.9rem; background: var(--surface-raised); color: var(--ink); font-family: inherit; }
+
+  .table-wrap { overflow-x: auto; background: var(--surface-raised); border: 1px solid var(--border); border-radius: 10px; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.85rem; white-space: nowrap; }
+  th, td { padding: 10px 12px; text-align: left; border-bottom: 1px solid var(--border); }
+  th { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--ink-muted); }
+  .empty { text-align: center; color: var(--ink-muted); padding: 30px; }
+
+  .badge { display: inline-block; padding: 3px 9px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; }
+  .badge-qualifiziert { background: #E1F0E5; color: #256B3A; }
+  .badge-unqualifiziert { background: #F4E1DE; color: #A5382A; }
+  .badge-in_progress { background: #EEEAE0; color: #7A7263; }
+  .badge-score-hoch { background: #E1F0E5; color: #256B3A; }
+  .badge-score-mittel { background: #FBF0DC; color: #8F5A28; }
+  .badge-score-niedrig { background: #EEEAE0; color: #7A7263; }
+
+  .kontakt-select { padding: 5px 8px; border: 1px solid var(--border-strong); border-radius: 5px; font-size: 0.82rem; background: var(--surface-raised); color: var(--ink); font-family: inherit; }
+  .kontakt-select.gespeichert { border-color: var(--accent); }
+
+  .pagination { display: flex; gap: 6px; margin-top: 18px; }
+  .pagination a { padding: 6px 12px; border: 1px solid var(--border); border-radius: 6px; text-decoration: none; font-size: 0.85rem; }
+  .pagination a.active { background: var(--accent); color: #2A1C0E; border-color: var(--accent); }
+</style>
+
+<div class="demo-badge">Design-Vorschau · Beispieldaten</div>
+
+<header class="admin-header">
+  <div class="admin-header-inner">
+    <h1>Zählerstand — Leads</h1>
+    <nav><a href="#">Partner</a><a href="#">CSV exportieren</a><a href="#">Abmelden</a></nav>
+  </div>
+</header>
+
+<main class="admin-main">
+  <div class="stat-row">
+    <div class="stat-card"><span class="stat-value" id="stat-qualifiziert">–</span><span class="stat-label">Qualifiziert gesamt</span></div>
+    <div class="stat-card"><span class="stat-value" id="stat-qualifiziert-7t">–</span><span class="stat-label">Qualifiziert (7 Tage)</span></div>
+    <div class="stat-card"><span class="stat-value" id="stat-offen">–</span><span class="stat-label">Noch nicht kontaktiert</span></div>
+    <div class="stat-card"><span class="stat-value" id="stat-in-progress">–</span><span class="stat-label">Abgebrochen (in_progress)</span></div>
+  </div>
+
+  <div class="filter-bar">
+    <label>Status
+      <select id="filter-status">
+        <option value="qualifiziert" selected>Qualifiziert</option>
+        <option value="unqualifiziert">Unqualifiziert</option>
+        <option value="in_progress">Abgebrochen</option>
+        <option value="alle">Alle</option>
+      </select>
+    </label>
+    <label>Kontaktstatus
+      <select id="filter-kontakt">
+        <option value="alle" selected>Alle</option>
+        <option value="offen">Offen</option>
+        <option value="kontaktiert">Kontaktiert</option>
+        <option value="termin">Termin</option>
+        <option value="abgeschlossen">Abgeschlossen</option>
+        <option value="kein_interesse">Kein_interesse</option>
+      </select>
+    </label>
+    <label>Zeitraum
+      <select id="filter-zeitraum">
+        <option value="alle" selected>Alle</option>
+        <option value="7">Letzte 7 Tage</option>
+        <option value="30">Letzte 30 Tage</option>
+      </select>
+    </label>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Datum</th><th>Vorname</th><th>Telefon</th><th>PLZ</th><th>Alter</th>
+          <th>Wohnsituation</th><th>Interesse</th><th>Kosten</th><th>Baujahr</th><th>Score</th>
+          <th>Status</th><th>Quelle</th><th>Partner</th><th>Kontakt</th><th></th>
+        </tr>
+      </thead>
+      <tbody id="leads-tbody"></tbody>
+    </table>
+  </div>
+
+  <div class="pagination">
+    <a href="#" class="active">1</a><a href="#">2</a>
+  </div>
+</main>
+
+<script>
+const KONTAKT_STATI = ['offen', 'kontaktiert', 'termin', 'abgeschlossen', 'kein_interesse'];
+
+function vorTagen(n) {
+  const d = new Date();
+  d.setDate(d.getDate() - n);
+  return d.toISOString().slice(0, 16).replace('T', ' ');
+}
+
+const LEADS = [
+  { id: 1, datum: vorTagen(0), vorname: 'Anna', telefon: '0151 5551001', plz: '10115', alter: 52, wohnsituation: 'eigentuemer', interesse: 'photovoltaik', kosten: '150-200', baujahr: 'vor-1980', score: 88, status: 'qualifiziert', notfall: false, quelle: 'sofort-check', partner: 'H5SYB', kontakt: 'offen' },
+  { id: 2, datum: vorTagen(2), vorname: 'Bernd', telefon: '0151 5551002', plz: '80331', alter: 47, wohnsituation: 'eigentuemer', interesse: 'waermepumpe', kosten: '100-150', baujahr: '1980-2000', score: 55, status: 'qualifiziert', notfall: false, quelle: 'sofort-check', partner: '', kontakt: 'kontaktiert' },
+  { id: 3, datum: vorTagen(9), vorname: 'Clara', telefon: '0151 5551003', plz: '50667', alter: 41, wohnsituation: 'eigentuemer', interesse: 'stromtarif', kosten: '50-100', baujahr: 'nach-2000', score: 30, status: 'qualifiziert', notfall: false, quelle: 'sofort-check', partner: 'UZBZV', kontakt: 'termin' },
+  { id: 4, datum: vorTagen(1), vorname: 'Dieter', telefon: '0151 5551004', plz: '20095', alter: null, wohnsituation: 'eigentuemer', interesse: '', kosten: '', baujahr: '', score: 60, status: 'qualifiziert', notfall: true, quelle: 'sofort-check', partner: '', kontakt: 'offen' },
+  { id: 5, datum: vorTagen(3), vorname: 'Franz', telefon: '0151 5551005', plz: '60329', alter: 58, wohnsituation: 'eigentuemer', interesse: 'photovoltaik', kosten: '', baujahr: '', score: null, status: 'in_progress', notfall: false, quelle: 'sofort-check', partner: '', kontakt: 'offen' },
+  { id: 6, datum: vorTagen(5), vorname: 'Petra', telefon: '', plz: '70173', alter: 34, wohnsituation: 'eigentuemer', interesse: 'waermepumpe', kosten: '150-200', baujahr: '1980-2000', score: null, status: 'unqualifiziert', notfall: false, quelle: 'sofort-check', partner: '', kontakt: 'offen' },
+  { id: 7, datum: vorTagen(14), vorname: 'Sabine', telefon: '0151 5551007', plz: '10115', alter: 50, wohnsituation: 'eigentuemer', interesse: 'waermepumpe', kosten: 'ueber-250', baujahr: 'vor-1980', score: 100, status: 'qualifiziert', notfall: false, quelle: 'import:daten.csv', partner: '', kontakt: 'abgeschlossen' },
+];
+
+let filtered = [];
+
+function score2klasse(score) {
+  if (score >= 70) return 'hoch';
+  if (score >= 45) return 'mittel';
+  return 'niedrig';
+}
+
+function waLink(telefon) {
+  let n = telefon.replace(/\D/g, '');
+  if (n.startsWith('0')) n = '49' + n.slice(1);
+  return 'https://wa.me/' + n;
+}
+
+function render() {
+  const statusF = document.getElementById('filter-status').value;
+  const kontaktF = document.getElementById('filter-kontakt').value;
+  const zeitraumF = document.getElementById('filter-zeitraum').value;
+
+  filtered = LEADS.filter(function (l) {
+    if (statusF !== 'alle' && l.status !== statusF) return false;
+    if (kontaktF !== 'alle' && l.kontakt !== kontaktF) return false;
+    if (zeitraumF !== 'alle') {
+      const tage = (Date.now() - new Date(l.datum).getTime()) / 86400000;
+      if (tage > parseInt(zeitraumF, 10)) return false;
+    }
+    return true;
+  });
+
+  const tbody = document.getElementById('leads-tbody');
+  tbody.innerHTML = '';
+
+  if (!filtered.length) {
+    tbody.innerHTML = '<tr><td colspan="15" class="empty">Keine Leads für diesen Filter.</td></tr>';
+    return;
+  }
+
+  filtered.forEach(function (l) {
+    const tr = document.createElement('tr');
+    const scoreHtml = l.score !== null ? '<span class="badge badge-score-' + score2klasse(l.score) + '">' + l.score + '</span>' : '';
+    const statusHtml = '<span class="badge badge-' + l.status + '">' + l.status + (l.notfall ? ' · Notfall' : '') + '</span>';
+    const waHtml = l.telefon ? '<a href="' + waLink(l.telefon) + '" target="_blank" rel="noopener">WhatsApp</a>' : '';
+    const optionsHtml = KONTAKT_STATI.map(function (k) {
+      return '<option value="' + k + '"' + (l.kontakt === k ? ' selected' : '') + '>' + k.charAt(0).toUpperCase() + k.slice(1) + '</option>';
+    }).join('');
+
+    tr.innerHTML =
+      '<td>' + l.datum + '</td>' +
+      '<td>' + l.vorname + '</td>' +
+      '<td>' + l.telefon + '</td>' +
+      '<td>' + l.plz + '</td>' +
+      '<td>' + (l.alter ?? '') + '</td>' +
+      '<td>' + l.wohnsituation + '</td>' +
+      '<td>' + l.interesse + '</td>' +
+      '<td>' + l.kosten + '</td>' +
+      '<td>' + l.baujahr + '</td>' +
+      '<td>' + scoreHtml + '</td>' +
+      '<td>' + statusHtml + '</td>' +
+      '<td>' + l.quelle + '</td>' +
+      '<td>' + l.partner + '</td>' +
+      '<td><select class="kontakt-select" data-id="' + l.id + '">' + optionsHtml + '</select></td>' +
+      '<td>' + waHtml + '</td>';
+    tbody.appendChild(tr);
+  });
+
+  tbody.querySelectorAll('.kontakt-select').forEach(function (select) {
+    select.addEventListener('change', function () {
+      const lead = LEADS.find(function (x) { return x.id === parseInt(select.dataset.id, 10); });
+      lead.kontakt = select.value;
+      select.classList.add('gespeichert');
+      setTimeout(function () { select.classList.remove('gespeichert'); }, 800);
+    });
+  });
+}
+
+function renderStats() {
+  const qualifiziert = LEADS.filter(function (l) { return l.status === 'qualifiziert'; });
+  const qualifiziert7t = qualifiziert.filter(function (l) { return (Date.now() - new Date(l.datum).getTime()) / 86400000 <= 7; });
+  const offen = qualifiziert.filter(function (l) { return l.kontakt === 'offen'; });
+  const inProgress = LEADS.filter(function (l) { return l.status === 'in_progress'; });
+
+  document.getElementById('stat-qualifiziert').textContent = qualifiziert.length;
+  document.getElementById('stat-qualifiziert-7t').textContent = qualifiziert7t.length;
+  document.getElementById('stat-offen').textContent = offen.length;
+  document.getElementById('stat-in-progress').textContent = inProgress.length;
+}
+
+['filter-status', 'filter-kontakt', 'filter-zeitraum'].forEach(function (id) {
+  document.getElementById(id).addEventListener('change', render);
+});
+
+renderStats();
+render();
+</script>

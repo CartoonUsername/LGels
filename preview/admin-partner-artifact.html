@@ -1,0 +1,124 @@
+<title>Partner-Übersicht</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --paper: #EFEDE6; --surface: #F7F5F0; --surface-raised: #FFFFFF;
+    --ink: #2A2824; --ink-muted: #6F6A61;
+    --accent: #C08A44; --accent-strong: #8F5A28;
+    --border: #DEDAD0; --border-strong: #C9C3B4;
+    --panel-dark: #24211C; --on-dark: #EDE8DD;
+    --shadow-b: rgba(30, 26, 18, 0.16);
+    --font-body: 'Public Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-mono: 'JetBrains Mono', 'SFMono-Regular', Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: #17150F; --surface: #1E1B15; --surface-raised: #26221B; --ink: #EEE8DA; --ink-muted: #A79E8C;
+      --accent: #D89A54; --accent-strong: #EFB876; --border: #38332A; --border-strong: #4A4335;
+      --panel-dark: #100E0A; --on-dark: #F1ECDF; --shadow-b: rgba(0,0,0,0.55);
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper: #17150F; --surface: #1E1B15; --surface-raised: #26221B; --ink: #EEE8DA; --ink-muted: #A79E8C;
+    --accent: #D89A54; --accent-strong: #EFB876; --border: #38332A; --border-strong: #4A4335;
+    --panel-dark: #100E0A; --on-dark: #F1ECDF; --shadow-b: rgba(0,0,0,0.55);
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--font-body); font-size: 15px; }
+  a { color: var(--accent-strong); }
+
+  .demo-badge { position: fixed; top: 12px; right: 12px; z-index: 3000; background: var(--panel-dark); color: var(--on-dark); font-family: var(--font-mono); font-size: 0.72rem; padding: 6px 12px; border-radius: 20px; opacity: 0.85; }
+
+  .admin-header { background: var(--panel-dark); color: var(--on-dark); padding: 16px 24px; }
+  .admin-header-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+  .admin-header h1 { font-size: 1.15rem; margin: 0; font-weight: 700; }
+  .admin-header nav a { color: var(--on-dark); margin-left: 16px; font-size: 0.88rem; text-decoration: none; }
+  .admin-header nav a:hover { text-decoration: underline; }
+
+  .admin-main { max-width: 1200px; margin: 0 auto; padding: 24px; }
+
+  .table-wrap { overflow-x: auto; background: var(--surface-raised); border: 1px solid var(--border); border-radius: 10px; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.85rem; white-space: nowrap; }
+  th, td { padding: 10px 12px; text-align: left; border-bottom: 1px solid var(--border); }
+  th { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--ink-muted); }
+  tbody tr:last-child td { border-bottom: none; }
+  .empty { text-align: center; color: var(--ink-muted); padding: 30px; }
+  code { font-family: var(--font-mono); font-size: 0.82rem; background: var(--surface); padding: 2px 6px; border-radius: 4px; }
+
+  .typ-tag { display: inline-block; padding: 2px 8px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; background: var(--surface); color: var(--ink-muted); }
+  .zahl-stark { font-family: var(--font-mono); font-weight: 700; }
+</style>
+
+<div class="demo-badge">Design-Vorschau · Beispieldaten</div>
+
+<header class="admin-header">
+  <div class="admin-header-inner">
+    <h1>Zählerstand — Partner</h1>
+    <nav><a href="#">Leads</a><a href="#">Abmelden</a></nav>
+  </div>
+</header>
+
+<main class="admin-main">
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Angemeldet</th><th>Name</th><th>Betrieb</th><th>Typ</th><th>PLZ-Gebiet</th><th>Code</th><th>Vermittelt</th><th>Davon qualifiziert</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>2026-08-26 18:40</td>
+          <td>Max Kaminkehrer</td>
+          <td>Kaminkehrer Müller</td>
+          <td><span class="typ-tag">Schornsteinfeger</span></td>
+          <td>10115</td>
+          <td><code>H5SYB</code></td>
+          <td class="zahl-stark">3</td>
+          <td class="zahl-stark">2</td>
+        </tr>
+        <tr>
+          <td>2026-08-26 19:05</td>
+          <td>Lisa Dachdecker</td>
+          <td>Dachdecker Schmidt GmbH</td>
+          <td><span class="typ-tag">Dachdecker</span></td>
+          <td>50667</td>
+          <td><code>UZBZV</code></td>
+          <td class="zahl-stark">2</td>
+          <td class="zahl-stark">1</td>
+        </tr>
+        <tr>
+          <td>2026-08-27 09:12</td>
+          <td>Jonas Reiter</td>
+          <td>Volksbank Filiale Süd</td>
+          <td><span class="typ-tag">Bank-/Finanzberater</span></td>
+          <td>80331</td>
+          <td><code>Q7MKD</code></td>
+          <td class="zahl-stark">1</td>
+          <td class="zahl-stark">1</td>
+        </tr>
+        <tr>
+          <td>2026-08-28 14:30</td>
+          <td>Tina Weber</td>
+          <td>Elektro Weber</td>
+          <td><span class="typ-tag">Sonstiger Handwerksbetrieb</span></td>
+          <td>60329</td>
+          <td><code>N3XPL</code></td>
+          <td class="zahl-stark">1</td>
+          <td class="zahl-stark">0</td>
+        </tr>
+        <tr>
+          <td>2026-08-30 08:02</td>
+          <td>Robert Klein</td>
+          <td>Klein Immobilienverwaltung</td>
+          <td><span class="typ-tag">Sonstiges</span></td>
+          <td>50667</td>
+          <td><code>F82RT</code></td>
+          <td class="zahl-stark">0</td>
+          <td class="zahl-stark">0</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</main>

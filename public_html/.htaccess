@@ -1,0 +1,20 @@
+# Basis-Hardening für Hostinger (Apache)
+
+Options -Indexes
+
+<IfModule mod_headers.c>
+  Header set X-Content-Type-Options "nosniff"
+  Header set X-Frame-Options "SAMEORIGIN"
+  Header set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+
+# Interne Admin-Hilfsdateien (Bootstrap/Filter) nicht direkt aufrufbar machen —
+# sie geben zwar ohnehin keine sensiblen Daten aus, aber besser explizit sperren.
+<FilesMatch "^_.*\.php$">
+  Require all denied
+</FilesMatch>
+
+# config.php niemals ausliefern, falls versehentlich in public_html gelandet
+<FilesMatch "^config\.php$">
+  Require all denied
+</FilesMatch>

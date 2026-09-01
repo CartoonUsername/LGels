@@ -1,0 +1,670 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@500;600;700&family=Public+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --paper: #EFEDE6;
+      --surface: #F7F5F0;
+      --surface-raised: #FFFFFF;
+      --ink: #2A2824;
+      --ink-muted: #6F6A61;
+      --accent-strong: #8F5A28;
+      --secondary: #6E7268;
+      --secondary-tint: #E7E7E1;
+      --border: #DEDAD0;
+      --border-strong: #C9C3B4;
+      --panel-dark: #24211C;
+      --panel-dark-2: #2E2A23;
+      --on-dark: #EDE8DD;
+      --on-dark-muted: #B2AB9C;
+      --shadow-a: rgba(30, 26, 18, 0.06);
+      --shadow-b: rgba(30, 26, 18, 0.16);
+      --whatsapp: #2E7D5B;
+
+      --font-display: 'Zilla Slab', Georgia, 'Times New Roman', serif;
+      --font-body: 'Public Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --font-mono: 'JetBrains Mono', 'SFMono-Regular', Consolas, monospace;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        --paper: #17150F;
+        --surface: #1E1B15;
+        --surface-raised: #26221B;
+        --ink: #EEE8DA;
+        --ink-muted: #A79E8C;
+        --accent-strong: #EFB876;
+        --secondary: #8B9186;
+        --secondary-tint: #262920;
+        --border: #38332A;
+        --border-strong: #4A4335;
+        --panel-dark: #100E0A;
+        --panel-dark-2: #1A1712;
+        --on-dark: #F1ECDF;
+        --on-dark-muted: #B7AF9E;
+        --shadow-a: rgba(0, 0, 0, 0.35);
+        --shadow-b: rgba(0, 0, 0, 0.55);
+      }
+    }
+    :root[data-theme="dark"] {
+      --paper: #17150F;
+      --surface: #1E1B15;
+      --surface-raised: #26221B;
+      --ink: #EEE8DA;
+      --ink-muted: #A79E8C;
+      --accent-strong: #EFB876;
+      --secondary: #8B9186;
+      --secondary-tint: #262920;
+      --border: #38332A;
+      --border-strong: #4A4335;
+      --panel-dark: #100E0A;
+      --panel-dark-2: #1A1712;
+      --on-dark: #F1ECDF;
+      --on-dark-muted: #B7AF9E;
+      --shadow-a: rgba(0, 0, 0, 0.35);
+      --shadow-b: rgba(0, 0, 0, 0.55);
+    }
+
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--font-body); }
+    a { color: var(--accent-strong); text-decoration: none; }
+    a:hover { color: var(--ink); }
+    :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+    h1, h2, h3 { font-family: var(--font-display); font-weight: 600; line-height: 1.08; text-wrap: balance; margin: 0; }
+    p { margin: 0; }
+    button { font-family: inherit; }
+
+    .grain {
+      position: fixed; inset: 0; z-index: 3000; pointer-events: none;
+      opacity: 0.035; mix-blend-mode: overlay;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+
+    .wrap { max-width: 1080px; margin: 0 auto; padding: 0 28px; }
+    .eyebrow { display: block; font-family: var(--font-mono); font-size: 0.76rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: 16px; }
+
+    /* ---- Icon plates: the shared visual language, echoing the header mark ---- */
+    .icon-plate {
+      display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0;
+      width: 54px; height: 54px; border-radius: 15px;
+      background: linear-gradient(160deg, color-mix(in oklab, var(--accent) 20%, var(--surface-raised)), var(--surface-raised));
+      border: 1px solid var(--border);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.5), inset 0 -7px 12px -7px rgba(0,0,0,0.14), 0 8px 16px -10px var(--shadow-b);
+      color: var(--accent-strong);
+    }
+    .icon-plate svg { width: 27px; height: 27px; }
+    .icon-plate.sm { width: 40px; height: 40px; border-radius: 11px; }
+    .icon-plate.sm svg { width: 20px; height: 20px; }
+    .icon-plate.mark { width: 34px; height: 34px; border-radius: 9px; }
+    .icon-plate.mark svg { width: 18px; height: 18px; }
+    .icon-plate.on-dark { background: linear-gradient(160deg, rgba(239,184,118,0.18), var(--panel-dark-2)); border-color: rgba(239,184,118,0.25); box-shadow: inset 0 1px 0 rgba(255,255,255,0.08), 0 8px 16px -10px rgba(0,0,0,0.6); }
+
+    /* ---- Switch buttons ---- */
+    .switch {
+      appearance: none; border: none; cursor: pointer;
+      display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+      font-weight: 700; font-size: 1rem; color: #2A1C0E;
+      background: linear-gradient(180deg, color-mix(in oklab, var(--accent) 92%, white 10%), var(--accent));
+      padding: 17px 30px; border-radius: 8px;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.35), inset 0 -3px 0 rgba(0,0,0,0.18), 0 10px 22px -10px var(--shadow-b);
+      transition: transform 0.08s ease, box-shadow 0.08s ease, filter 0.15s ease;
+    }
+    .switch:hover { filter: brightness(1.04); }
+    .switch:active { transform: translateY(2px); box-shadow: inset 0 2px 4px rgba(0,0,0,0.3); }
+    .switch.secondary { background: transparent; color: var(--on-dark-muted); box-shadow: inset 0 0 0 1.5px rgba(255,255,255,0.25); }
+    .switch.whatsapp { background: var(--whatsapp); color: #fff; box-shadow: inset 0 1px 0 rgba(255,255,255,0.25), 0 10px 22px -10px var(--shadow-b); }
+    .switch.block { width: 100%; }
+    @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+
+    /* ---- Header + Hero: one dark panel ---- */
+    .panel-top { background: linear-gradient(175deg, var(--panel-dark), var(--panel-dark-2)); color: var(--on-dark); position: relative; overflow: hidden; }
+    .panel-top::before {
+      content: ""; position: absolute; inset: 0;
+      background-image: repeating-linear-gradient(0deg, rgba(239,184,118,0.05) 0 1px, transparent 1px 46px), repeating-linear-gradient(90deg, rgba(239,184,118,0.05) 0 1px, transparent 1px 46px);
+      mask-image: radial-gradient(ellipse 70% 60% at 60% 10%, black 20%, transparent 72%);
+    }
+    .panel-top::after {
+      content: ""; position: absolute; width: 640px; height: 640px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(239,184,118,0.16), transparent 70%);
+      top: -260px; right: -180px; pointer-events: none;
+    }
+    .nameplate { position: relative; padding: 22px 0; border-bottom: 1px solid rgba(239,184,118,0.14); }
+    .nameplate .wrap { display: flex; align-items: center; justify-content: space-between; }
+    .wordmark { display: flex; align-items: center; gap: 12px; font-family: var(--font-mono); font-weight: 700; letter-spacing: 0.02em; font-size: 1.02rem; }
+    .wordmark small { display: block; font-family: var(--font-body); font-weight: 500; color: var(--on-dark-muted); font-size: 0.7rem; letter-spacing: 0.09em; text-transform: uppercase; }
+    .model-tag { font-family: var(--font-mono); font-size: 0.74rem; color: var(--on-dark-muted); }
+
+    .hero { position: relative; padding: 76px 0 96px; }
+    .hero .wrap { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 56px; align-items: center; }
+    .hero h1 { font-size: clamp(2.5rem, 5vw, 3.6rem); letter-spacing: -0.015em; margin-bottom: 22px; }
+    .hero .lede { font-size: 1.12rem; color: var(--on-dark-muted); max-width: 44ch; margin-bottom: 34px; line-height: 1.6; }
+    .hero-note { margin-top: 18px; font-family: var(--font-mono); font-size: 0.8rem; color: var(--on-dark-muted); }
+
+    .readout-dial { display: flex; justify-content: center; }
+    .readout-dial svg { filter: drop-shadow(0 18px 30px rgba(0,0,0,0.4)); }
+
+    /* ---- Trust bar ---- */
+    .trust-bar { background: var(--secondary-tint); border-bottom: 1px solid var(--border); padding: 24px 0; }
+    .trust-items { display: flex; flex-wrap: wrap; gap: 36px; justify-content: center; }
+    .trust-item { display: flex; align-items: center; gap: 12px; font-size: 0.92rem; font-weight: 600; color: var(--ink); }
+
+    /* ---- Sections ---- */
+    .section { padding: 84px 0; position: relative; }
+    .section-head { text-align: center; max-width: 48ch; margin: 0 auto 48px; }
+    .section-head .eyebrow { text-align: center; }
+    .section-head h2 { font-size: clamp(1.7rem, 3.2vw, 2.25rem); }
+
+    .section--tint { background: var(--surface); }
+    .section--tint::before {
+      content: ""; position: absolute; width: 720px; height: 720px; border-radius: 50%;
+      background: radial-gradient(circle, color-mix(in oklab, var(--accent) 14%, transparent), transparent 70%);
+      top: -280px; left: 50%; transform: translateX(-60%); pointer-events: none;
+    }
+
+    .benefits-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 26px; position: relative; }
+    .benefit-card {
+      background: var(--surface-raised); border: 1px solid var(--border); border-radius: 14px;
+      padding: 32px 28px; position: relative;
+      box-shadow: 0 1px 2px var(--shadow-a), 0 18px 32px -20px var(--shadow-b);
+    }
+    .benefit-card::before {
+      content: ""; position: absolute; top: 14px; left: 14px; width: 8px; height: 8px; border-radius: 50%;
+      background: var(--accent); box-shadow: 0 0 0 3px color-mix(in oklab, var(--accent) 20%, transparent);
+    }
+    .benefit-card .icon-plate { margin-bottom: 20px; }
+    .benefit-card h3 { font-size: 1.15rem; margin-bottom: 10px; }
+    .benefit-card p { color: var(--ink-muted); font-size: 0.95rem; line-height: 1.6; }
+
+    /* ---- Testimonials ---- */
+    .stub-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 26px; position: relative; }
+    .stub {
+      background: var(--surface-raised); border: 1px solid var(--border); border-radius: 16px;
+      padding: 28px 26px 24px; position: relative; overflow: hidden;
+      box-shadow: 0 2px 4px var(--shadow-a), 0 24px 40px -22px var(--shadow-b);
+    }
+    .stub .quote-mark { position: absolute; top: -6px; right: 16px; font-family: var(--font-display); font-size: 5rem; color: color-mix(in oklab, var(--accent) 16%, transparent); line-height: 1; user-select: none; }
+    .stub p.quote { font-size: 0.98rem; line-height: 1.65; color: var(--ink); position: relative; margin-bottom: 20px; }
+    .stub-person { display: flex; align-items: center; gap: 12px; }
+    .avatar { width: 42px; height: 42px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--font-mono); font-weight: 700; font-size: 0.82rem; color: #2A1C0E; flex-shrink: 0; }
+    .stub-person .who { font-size: 0.85rem; }
+    .stub-person .who strong { display: block; font-size: 0.92rem; }
+    .stub-person .who span { color: var(--ink-muted); }
+
+    /* ---- FAQ ---- */
+    .faq-panel { max-width: 64ch; margin: 0 auto; display: grid; gap: 12px; position: relative; }
+    .faq-item { background: var(--surface-raised); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; box-shadow: 0 1px 2px var(--shadow-a); }
+    .faq-item summary {
+      cursor: pointer; padding: 19px 22px; font-weight: 600; display: flex; align-items: center; justify-content: space-between; gap: 16px; list-style: none;
+    }
+    .faq-item summary::-webkit-details-marker { display: none; }
+    .faq-chevron { width: 26px; height: 26px; border-radius: 50%; background: var(--secondary-tint); display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: transform 0.25s ease; color: var(--accent-strong); }
+    .faq-item[open] .faq-chevron { transform: rotate(180deg); }
+    .faq-item p { padding: 0 22px 20px; color: var(--ink-muted); font-size: 0.94rem; line-height: 1.6; }
+
+    /* ---- Footer ---- */
+    .site-footer { padding: 40px 0; border-top: 1px solid var(--border); }
+    .site-footer .wrap { display: flex; flex-wrap: wrap; gap: 18px; justify-content: space-between; align-items: center; }
+    .site-footer nav { display: flex; gap: 20px; font-size: 0.88rem; }
+    .site-footer nav a { color: var(--ink-muted); }
+    .site-footer .credit { font-family: var(--font-mono); font-size: 0.78rem; color: var(--ink-muted); }
+
+    /* ---- Sofort-Check overlay ---- */
+    .panel-overlay { position: fixed; inset: 0; background: var(--paper); z-index: 1000; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 32px 24px; overflow-y: auto; }
+    .panel-close { position: absolute; top: 18px; right: 18px; background: var(--surface-raised); border: 1px solid var(--border); color: var(--ink-muted); width: 38px; height: 38px; border-radius: 50%; cursor: pointer; font-size: 1rem; }
+    .sc-progress { position: absolute; top: 0; left: 0; right: 0; display: flex; gap: 3px; padding: 6px 8px 0; }
+    .sc-progress-seg { height: 4px; flex: 1; border-radius: 2px; }
+    .sc-step { width: 100%; max-width: 440px; text-align: center; }
+    .sc-step h2 { font-size: 1.55rem; margin-bottom: 8px; }
+    .sc-step .sc-sub { color: var(--ink-muted); margin-bottom: 26px; font-size: 0.95rem; }
+    .sc-tap-grid { display: grid; gap: 12px; }
+    .sc-tap {
+      appearance: none; width: 100%; min-height: 62px; display: flex; align-items: center; gap: 14px; padding: 0 18px;
+      font-size: 1.02rem; font-weight: 600; color: var(--ink); background: var(--surface-raised);
+      border: 1px solid var(--border-strong); border-radius: 10px; cursor: pointer;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.4), 0 2px 0 var(--border-strong);
+      transition: transform 0.08s ease, box-shadow 0.08s ease, border-color 0.15s ease;
+    }
+    .sc-tap:hover { border-color: var(--accent); }
+    .sc-tap:active { transform: translateY(2px); box-shadow: inset 0 2px 3px rgba(0,0,0,0.15); }
+    .readout { background: var(--panel-dark); color: #C9F0C9; border-radius: 12px; padding: 30px 22px; margin-bottom: 20px; box-shadow: inset 0 2px 10px rgba(0,0,0,0.5); }
+    .readout .readout-label { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.65; }
+    .readout .readout-value { font-family: var(--font-mono); font-size: 2.7rem; font-weight: 700; font-variant-numeric: tabular-nums; margin: 6px 0; }
+    .sc-disclaimer { font-size: 0.78rem; color: var(--ink-muted); margin-bottom: 26px; }
+    #sc-kontakt-form { text-align: left; }
+    #sc-kontakt-form label { display: block; margin: 16px 0 6px; font-weight: 600; font-size: 0.9rem; }
+    #sc-kontakt-form input[type="text"], #sc-kontakt-form input[type="tel"] {
+      width: 100%; padding: 13px 4px; border: none; border-bottom: 2px solid var(--border-strong); background: transparent; font-size: 1.05rem; color: var(--ink);
+    }
+    #sc-kontakt-form input:focus { border-bottom-color: var(--accent); outline: none; }
+    .checkbox-row { display: flex; gap: 10px; align-items: flex-start; margin: 20px 0; font-size: 0.85rem; color: var(--ink-muted); text-align: left; }
+    #sc-feedback { margin-top: 12px; font-size: 0.88rem; min-height: 1.2em; color: #B23A2E; }
+    .sc-icon-big { width: 52px; height: 52px; margin: 0 auto 16px; }
+
+    @media (max-width: 780px) {
+      .hero .wrap { grid-template-columns: 1fr; }
+      .readout-dial { order: -1; }
+    }
+  </style>
+</helmet>
+
+<div style="--accent: {{accent}};">
+<div class="grain"></div>
+
+<!-- ================= Header + Hero (one dark panel) ================= -->
+<div class="panel-top">
+  <header class="nameplate">
+    <div class="wrap">
+      <div class="wordmark">
+        <span class="icon-plate mark on-dark">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 15a7 7 0 0 1 14 0"/><line x1="12" y1="15" x2="12" y2="9"/><circle cx="12" cy="15" r="1.2" fill="currentColor" stroke="none"/></svg>
+        </span>
+        <span>ZÄHLERSTAND<small>Energie-Check</small></span>
+      </div>
+      <span class="model-tag">Modell&nbsp;E&#8209;40/60</span>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="wrap">
+      <div>
+        <span class="eyebrow" style="text-align:left;">Kostenlose Vor-Ort-Prüfung</span>
+        <h1>Ihr Zählerstand verrät mehr, als Sie denken.</h1>
+        <p class="lede">Photovoltaik, Wärmepumpe oder ein günstigerer Stromtarif — in 20&nbsp;Sekunden antippen statt Formular ausfüllen.</p>
+        <button type="button" class="switch" onClick="{{openCheck}}">
+          <svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M13 2 4 14h6l-1 8 9-12h-6z" stroke-linejoin="round" stroke-linecap="round"/></svg>
+          Jetzt Zähler prüfen
+        </button>
+        <div class="hero-note">Kostenlos · unverbindlich · keine Registrierung</div>
+      </div>
+      <div class="readout-dial" aria-hidden="true">
+        <svg width="240" height="240" viewBox="0 0 240 240">
+          <circle cx="120" cy="120" r="106" fill="var(--panel-dark-2)" stroke="rgba(239,184,118,0.25)" stroke-width="1.5"/>
+          <g stroke="rgba(239,184,118,0.35)" stroke-width="2">
+            <line x1="120" y1="26" x2="120" y2="38"/>
+            <line x1="120" y1="202" x2="120" y2="214" opacity="0.4"/>
+            <line x1="26" y1="120" x2="38" y2="120" opacity="0.4"/>
+            <line x1="202" y1="120" x2="214" y2="120" opacity="0.4"/>
+          </g>
+          <g style="transform: rotate(38deg); transform-origin: 120px 120px;">
+            <line x1="120" y1="120" x2="120" y2="52" stroke="#EFB876" stroke-width="3.5" stroke-linecap="round"/>
+          </g>
+          <circle cx="120" cy="120" r="7" fill="#EFB876"/>
+          <text x="120" y="162" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="13" fill="#B7AF9E" letter-spacing="1.5">KWH · MONAT</text>
+        </svg>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ================= Trust bar ================= -->
+<section class="trust-bar">
+  <div class="wrap trust-items">
+    <span class="trust-item">
+      <span class="icon-plate sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg></span>
+      TÜV-geprüfte Partner
+    </span>
+    <span class="trust-item">
+      <span class="icon-plate sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 11.5 12 5l8 6.5"/><path d="M6 10v9h12v-9"/><path d="M10 19v-5h4v5"/></svg></span>
+      Made in Germany
+    </span>
+    <span class="trust-item">
+      <span class="icon-plate sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="9" cy="9" r="3"/><circle cx="16.5" cy="10.5" r="2.4"/><path d="M4 19c0-2.8 2.2-5 5-5s5 2.2 5 5M14.2 14.5c2.2.3 3.8 2.2 3.8 4.5"/></svg></span>
+      Über 10.000 zufriedene Kunden
+    </span>
+  </div>
+</section>
+
+<!-- ================= Benefits ================= -->
+<section class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Was Sie gewinnen</span>
+      <h2>Drei Werte, die sich sofort auszahlen</h2>
+    </div>
+    <div class="benefits-grid">
+      <div class="benefit-card">
+        <span class="icon-plate"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="8"/><path d="M8.5 10.3h6.5M8.5 13.7h5.2" stroke-linecap="round"/></svg></span>
+        <h3>Kosten senken</h3>
+        <p>Reduzieren Sie Ihre monatlichen Energiekosten spürbar und dauerhaft.</p>
+      </div>
+      <div class="benefit-card">
+        <span class="icon-plate"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M13 2 4 14h6l-1 8 9-12h-6z" stroke-linejoin="round" stroke-linecap="round"/></svg></span>
+        <h3>Unabhängig werden</h3>
+        <p>Machen Sie sich unabhängig von steigenden Strom- und Gaspreisen.</p>
+      </div>
+      <div class="benefit-card">
+        <span class="icon-plate"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="10" r="5"/><path d="M9 14.5 7.5 21l4.5-2.3 4.5 2.3-1.5-6.5" stroke-linejoin="round"/></svg></span>
+        <h3>Förderung sichern</h3>
+        <p>Nutzen Sie staatliche Förderprogramme, bevor sie auslaufen.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= Testimonials ================= -->
+<section class="section section--tint">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Rückmeldungen</span>
+      <h2>Das sagen unsere Kunden</h2>
+    </div>
+    <div class="stub-row">
+      <div class="stub">
+        <span class="quote-mark">&rdquo;</span>
+        <p class="quote">Der Ablauf war unkompliziert und ich habe schnell ein passendes Angebot erhalten.</p>
+        <div class="stub-person">
+          <span class="avatar" style="background: linear-gradient(155deg, #E7B77A, #B5822F);">MS</span>
+          <span class="who"><strong>M. Schneider</strong><span>Eigentümerin, Photovoltaik</span></span>
+        </div>
+      </div>
+      <div class="stub">
+        <span class="quote-mark">&rdquo;</span>
+        <p class="quote">Endlich unabhängig von steigenden Strompreisen.</p>
+        <div class="stub-person">
+          <span class="avatar" style="background: linear-gradient(155deg, #A9B6A0, #6E7268);">KF</span>
+          <span class="who"><strong>K. Fischer</strong><span>Eigentümer, Wärmepumpe</span></span>
+        </div>
+      </div>
+      <div class="stub">
+        <span class="quote-mark">&rdquo;</span>
+        <p class="quote">Kompetente Beratung, klare Empfehlung.</p>
+        <div class="stub-person">
+          <span class="avatar" style="background: linear-gradient(155deg, #D9A55C, #8F5A28);">RW</span>
+          <span class="who"><strong>R. Weber</strong><span>Eigentümer, Stromtarif</span></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FAQ ================= -->
+<section class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Bevor Sie starten</span>
+      <h2>Häufige Fragen</h2>
+    </div>
+    <div class="faq-panel">
+      <details class="faq-item">
+        <summary>Entstehen mir Kosten durch die Anfrage?<span class="faq-chevron"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 10l5 5 5-5"/></svg></span></summary>
+        <p>Nein, die Prüfung ist für Sie vollständig kostenlos und unverbindlich.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Wie schnell werde ich kontaktiert?<span class="faq-chevron"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 10l5 5 5-5"/></svg></span></summary>
+        <p>In der Regel meldet sich ein Berater innerhalb von 1–2 Werktagen telefonisch oder per WhatsApp bei Ihnen.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Was passiert mit meinen Daten?<span class="faq-chevron"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 10l5 5 5-5"/></svg></span></summary>
+        <p>Ihre Daten werden ausschließlich zur Bearbeitung Ihrer Anfrage verwendet.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Ist die Förderung noch verfügbar?<span class="faq-chevron"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 10l5 5 5-5"/></svg></span></summary>
+        <p>Die Verfügbarkeit staatlicher Förderprogramme kann sich ändern — ein Berater prüft dies individuell für Sie.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <span class="credit">© Zählerstand — Design-Vorschau</span>
+    <nav><a href="#">Impressum</a><a href="#">Datenschutz</a><a href="#">Kontakt</a></nav>
+  </div>
+</footer>
+
+<!-- ================= Sofort-Check Kontrollpanel ================= -->
+<sc-if value="{{checkOpen}}" hint-placeholder-val="{{false}}">
+<div class="panel-overlay">
+  <button type="button" class="panel-close" aria-label="Schließen" onClick="{{closeCheck}}">✕</button>
+
+  <sc-if value="{{showProgress}}" hint-placeholder-val="{{true}}">
+  <div class="sc-progress">
+    <span class="sc-progress-seg" style="background: {{seg1}};"></span>
+    <span class="sc-progress-seg" style="background: {{seg2}};"></span>
+    <span class="sc-progress-seg" style="background: {{seg3}};"></span>
+    <span class="sc-progress-seg" style="background: {{seg4}};"></span>
+  </div>
+  </sc-if>
+
+  <sc-if value="{{stepIsWohnsituation}}" hint-placeholder-val="{{true}}">
+  <div class="sc-step">
+    <h2>Bist du Eigentümer:in deiner Immobilie?</h2>
+    <p class="sc-sub">Nur ein Tap, kein Tippen.</p>
+    <div class="sc-tap-grid">
+      <button type="button" class="sc-tap" onClick="{{onPickEigentuemer}}">
+        <span class="icon-plate sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 11.5 12 5l8 6.5"/><path d="M6 10v9h12v-9"/><path d="M10 19v-5h4v5"/></svg></span>
+        Ja, Eigentümer:in
+      </button>
+      <button type="button" class="sc-tap" onClick="{{onPickMieter}}">
+        <span class="icon-plate sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="8" cy="8" r="3.2"/><path d="M10.3 10.3 19 19m-3 0 2-2m-6-1 2-2"/></svg></span>
+        Nein, Mieter:in
+      </button>
+    </div>
+  </div>
+  </sc-if>
+
+  <sc-if value="{{stepIsAlter}}" hint-placeholder-val="{{false}}">
+  <div class="sc-step">
+    <h2>Wie alt bist du?</h2>
+    <p class="sc-sub">Hilft uns, das passende Angebot zu finden.</p>
+    <div class="sc-tap-grid">
+      <button type="button" class="sc-tap" onClick="{{onPickAlterUnter}}">unter 40</button>
+      <button type="button" class="sc-tap" onClick="{{onPickAlterMitte}}">40–60</button>
+      <button type="button" class="sc-tap" onClick="{{onPickAlterUeber}}">über 60</button>
+    </div>
+  </div>
+  </sc-if>
+
+  <sc-if value="{{stepIsInteresse}}" hint-placeholder-val="{{false}}">
+  <div class="sc-step">
+    <h2>Woran hast du Interesse?</h2>
+    <div class="sc-tap-grid">
+      <button type="button" class="sc-tap" onClick="{{onPickPhotovoltaik}}">
+        <span class="icon-plate sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="4"/><path d="M12 3v3M12 18v3M4 12h3M17 12h3M6 6l2 2M16 16l2 2M6 18l2-2M16 8l2-2" stroke-linecap="round"/></svg></span>
+        Photovoltaik
+      </button>
+      <button type="button" class="sc-tap" onClick="{{onPickWaermepumpe}}">
+        <span class="icon-plate sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 3c2.8 3.6-2.6 4.6-1 8.2 1.4 2.9 4.2 1.5 3.6-1.7 1.8 1.4 2.3 5.4-1.3 7.2-4.4 2.4-8-.9-7.1-5.3.5-2.2 1.8-4 5.8-8.4z"/></svg></span>
+        Wärmepumpe
+      </button>
+      <button type="button" class="sc-tap" onClick="{{onPickStromtarif}}">
+        <span class="icon-plate sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M13 2 4 14h6l-1 8 9-12h-6z" stroke-linejoin="round" stroke-linecap="round"/></svg></span>
+        Stromtarif
+      </button>
+      <button type="button" class="sc-tap" onClick="{{onPickSonstiges}}">
+        <span class="icon-plate sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.6.4 1 1.1 1 1.9v.2h5v-.2c0-.8.4-1.5 1-1.9A6 6 0 0 0 12 3Z" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        Sonstiges
+      </button>
+    </div>
+  </div>
+  </sc-if>
+
+  <sc-if value="{{stepIsEnergiekosten}}" hint-placeholder-val="{{false}}">
+  <div class="sc-step">
+    <h2>Wie hoch sind deine monatlichen Energiekosten?</h2>
+    <div class="sc-tap-grid">
+      <button type="button" class="sc-tap" onClick="{{onPickEK1}}">unter 50 €</button>
+      <button type="button" class="sc-tap" onClick="{{onPickEK2}}">50–100 €</button>
+      <button type="button" class="sc-tap" onClick="{{onPickEK3}}">100–150 €</button>
+      <button type="button" class="sc-tap" onClick="{{onPickEK4}}">150–200 €</button>
+      <button type="button" class="sc-tap" onClick="{{onPickEK5}}">200–250 €</button>
+      <button type="button" class="sc-tap" onClick="{{onPickEK6}}">über 250 €</button>
+    </div>
+  </div>
+  </sc-if>
+
+  <sc-if value="{{stepIsErgebnis}}" hint-placeholder-val="{{false}}">
+  <div class="sc-step">
+    <h2>Dein Zählerstand</h2>
+    <div class="readout">
+      <div class="readout-label">Geschätzte Ersparnis</div>
+      <div class="readout-value">{{ersparnisText}}</div>
+    </div>
+    <p class="sc-disclaimer">Unverbindliche Schätzung. Die tatsächliche Ersparnis hängt von deiner individuellen Situation ab.</p>
+    <button type="button" class="switch block" onClick="{{weiterZuKontakt}}">Ergebnis sichern</button>
+  </div>
+  </sc-if>
+
+  <sc-if value="{{stepIsKontakt}}" hint-placeholder-val="{{false}}">
+  <div class="sc-step">
+    <h2>Wohin sollen wir dein Ergebnis schicken?</h2>
+    <form onSubmit="{{submitKontakt}}">
+      <label for="sc-vorname">Vorname</label>
+      <input type="text" id="sc-vorname" name="vorname" required autocomplete="given-name">
+      <label for="sc-plz">Postleitzahl</label>
+      <input type="text" id="sc-plz" name="plz" inputmode="numeric" pattern="\d{4,5}" maxlength="5" required autocomplete="postal-code">
+      <label for="sc-telefon">Telefonnummer</label>
+      <input type="tel" id="sc-telefon" name="telefon" required placeholder="0151 23456789" autocomplete="tel">
+      <label class="checkbox-row"><input type="checkbox" id="sc-datenschutz" name="datenschutz" required> Ich habe die Datenschutzerklärung gelesen und bin mit der Kontaktaufnahme (auch per WhatsApp/Telefon) einverstanden. *</label>
+      <button type="submit" class="switch whatsapp block">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15L2 22l5.2-1.4A10 10 0 1 0 12 2Zm0 18a8 8 0 0 1-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1 1 12 20Z"/></svg>
+        Per WhatsApp sichern
+      </button>
+      <p id="sc-feedback">{{feedback}}</p>
+    </form>
+  </div>
+  </sc-if>
+
+  <sc-if value="{{stepIsErfolg}}" hint-placeholder-val="{{false}}">
+  <div class="sc-step">
+    <span class="icon-plate" style="margin: 0 auto 16px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+    <h2>Fast geschafft!</h2>
+    <p class="sc-sub">Dein Ergebnis wurde gespeichert. Ein Berater meldet sich per WhatsApp bei dir.</p>
+    <button type="button" class="switch whatsapp" onClick="{{closeCheck}}">Verstanden</button>
+    <p style="margin-top: 18px; font-size: 0.78rem; color: var(--ink-muted);">Design-Vorschau: WhatsApp-Anbindung ist Platzhalter.</p>
+  </div>
+  </sc-if>
+
+  <sc-if value="{{stepIsAusschluss}}" hint-placeholder-val="{{false}}">
+  <div class="sc-step">
+    <h2>Danke für dein Interesse!</h2>
+    <p class="sc-sub">{{exitMessage}}</p>
+    <button type="button" class="switch secondary" onClick="{{closeCheck}}" style="color: var(--ink); box-shadow: inset 0 0 0 1.5px var(--border-strong);">Schließen</button>
+  </div>
+  </sc-if>
+
+</div>
+</sc-if>
+
+</div>
+</x-dc>
+
+<script data-dc-script data-props='{"accent":{"editor":"color","default":"#C08A44","options":["#C08A44","#B9713A","#A8763D","#8F5A28"],"section":"Farbe"}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = {
+      checkOpen: false,
+      step: 'wohnsituation',
+      exitMessage: '',
+      interesse: null,
+      energiekosten: null,
+      ersparnis: 0,
+      feedback: ''
+    };
+    this.MITTE = { 'unter-50': 40, '50-100': 75, '100-150': 125, '150-200': 175, '200-250': 225, 'ueber-250': 275 };
+    this.QUOTE = { photovoltaik: 0.35, waermepumpe: 0.25, stromtarif: 0.15, sonstiges: 0.1 };
+  }
+
+  pickWohnsituation(value) {
+    if (value === 'mieter') {
+      this.setState({ step: 'ausschluss', exitMessage: 'Aktuell richten wir uns an Eigentümer:innen von Wohneigentum.' });
+    } else {
+      this.setState({ step: 'alter' });
+    }
+  }
+
+  pickAlter(bucket) {
+    if (bucket !== '40-60') {
+      this.setState({ step: 'ausschluss', exitMessage: 'Unser Angebot richtet sich aktuell an die Altersgruppe 40–60.' });
+    } else {
+      this.setState({ step: 'interesse' });
+    }
+  }
+
+  pickInteresse(value) {
+    this.setState({ interesse: value, step: 'energiekosten' });
+  }
+
+  pickEnergiekosten(value) {
+    var basis = this.MITTE[value] || 100;
+    var quote = this.QUOTE[this.state.interesse] || 0.1;
+    this.setState({ energiekosten: value, ersparnis: Math.round(basis * quote), step: 'ergebnis' });
+  }
+
+  istGueltigeTelefonnummer(tel) {
+    var n = tel.replace(/[\s\-\/()]/g, '');
+    return /^(\+49|0049|0)[1-9][0-9]{6,14}$/.test(n);
+  }
+
+  handleSubmitKontakt(e) {
+    if (e && e.preventDefault) e.preventDefault();
+    var form = e.target;
+    var telefon = form.telefon.value.trim();
+    var datenschutz = form.datenschutz.checked;
+    if (!this.istGueltigeTelefonnummer(telefon) || !datenschutz) {
+      this.setState({ feedback: 'Bitte überprüfe deine Telefonnummer und die Einwilligung.' });
+      return;
+    }
+    this.setState({ step: 'erfolg', feedback: '' });
+  }
+
+  renderVals() {
+    var self = this;
+    var s = this.state;
+    var order = ['wohnsituation', 'alter', 'interesse', 'energiekosten'];
+    var idx = order.indexOf(s.step);
+    var on = 'var(--accent)';
+    var off = 'var(--border)';
+    return {
+      accent: this.props.accent || '#C08A44',
+      checkOpen: s.checkOpen,
+      showProgress: idx >= 0,
+      seg1: idx >= 0 ? on : off,
+      seg2: idx >= 1 ? on : off,
+      seg3: idx >= 2 ? on : off,
+      seg4: idx >= 3 ? on : off,
+      openCheck: function () { self.setState({ checkOpen: true, step: 'wohnsituation', feedback: '' }); },
+      closeCheck: function () { self.setState({ checkOpen: false }); },
+      stepIsWohnsituation: s.step === 'wohnsituation',
+      stepIsAlter: s.step === 'alter',
+      stepIsInteresse: s.step === 'interesse',
+      stepIsEnergiekosten: s.step === 'energiekosten',
+      stepIsErgebnis: s.step === 'ergebnis',
+      stepIsKontakt: s.step === 'kontakt',
+      stepIsErfolg: s.step === 'erfolg',
+      stepIsAusschluss: s.step === 'ausschluss',
+      exitMessage: s.exitMessage,
+      ersparnisText: '≈ ' + s.ersparnis + ' € / Monat',
+      feedback: s.feedback,
+      onPickEigentuemer: function () { self.pickWohnsituation('eigentuemer'); },
+      onPickMieter: function () { self.pickWohnsituation('mieter'); },
+      onPickAlterUnter: function () { self.pickAlter('unter40'); },
+      onPickAlterMitte: function () { self.pickAlter('40-60'); },
+      onPickAlterUeber: function () { self.pickAlter('ueber60'); },
+      onPickPhotovoltaik: function () { self.pickInteresse('photovoltaik'); },
+      onPickWaermepumpe: function () { self.pickInteresse('waermepumpe'); },
+      onPickStromtarif: function () { self.pickInteresse('stromtarif'); },
+      onPickSonstiges: function () { self.pickInteresse('sonstiges'); },
+      onPickEK1: function () { self.pickEnergiekosten('unter-50'); },
+      onPickEK2: function () { self.pickEnergiekosten('50-100'); },
+      onPickEK3: function () { self.pickEnergiekosten('100-150'); },
+      onPickEK4: function () { self.pickEnergiekosten('150-200'); },
+      onPickEK5: function () { self.pickEnergiekosten('200-250'); },
+      onPickEK6: function () { self.pickEnergiekosten('ueber-250'); },
+      weiterZuKontakt: function () { self.setState({ step: 'kontakt' }); },
+      submitKontakt: function (e) { self.handleSubmitKontakt(e); }
+    };
+  }
+}
+</script>
+</body>
+</html>
